@@ -4,7 +4,6 @@ const form = document.querySelector("form");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  console.log(e.target.value);
   const params = {};
   params.Pays = e.target.Pays.value;
   params.Ville = e.target.Ville.value;
@@ -13,6 +12,7 @@ form.addEventListener("submit", async (e) => {
   params.NombreResultats = e.target.NombreResultats.value;
 
   let rep = {};
+
   if (params.Ville === "" && params.CP !== "") {
     rep = await axios
       .get(
@@ -45,39 +45,40 @@ form.addEventListener("submit", async (e) => {
     return;
   }
   const { data } = rep;
-  console.log(rep);
+
   document.querySelector("#relays").innerHTML = ``;
   data.forEach((pointRelais) => {
-    document.querySelector("#relays").innerHTML += `
-    <ul id="relay">
-    <li>Number of the relay point : ${pointRelais.Num}</li>
-    <li>Latitude : ${pointRelais.Latitude}</li>
-    <li>Longitude : ${pointRelais.Longitude}</li>
-    <li>Adress : ${pointRelais.Adresse}</li>
-    <li>Distance : ${pointRelais.Distance}</li>
-    <li>
-    <ul>
-    <li>Schedule :</li>
-    `;
     const days = Object.keys(pointRelais.Horaires);
+    let scheduling = "";
+
     days.forEach((day) => {
       let schedule = "";
       pointRelais.Horaires[day].forEach((hour, i) => {
         if (i === 1 || i === 3) {
-          schedule += `- ${hour}`;
+          schedule += `- ${hour} `;
         } else {
           schedule += `${hour} `;
         }
       });
-      document.querySelector("#relays").innerHTML += `
-      <li>${day} : ${schedule}</li>
+      scheduling += `
+      <p>${day} : ${schedule}</p>
       `;
     });
+
     document.querySelector("#relays").innerHTML += `
-    </ul>
-    </li>
-    <li><iframe src="${pointRelais.URL_Plan}"></li>
-      </ul>
-      `;
+    <section id="relay">
+      <p>Number of the relay point : ${pointRelais.Num}</p>
+      <p>Latitude : ${pointRelais.Latitude}</p>
+      <p>Longitude : ${pointRelais.Longitude}</p>
+      <p>Adress : ${pointRelais.Adresse}</p>
+      <p>Distance : ${pointRelais.Distance}m</p>
+      <p><img src=${pointRelais.URL_Photo} alt="picture not available"></p>
+      <p>Schedule :</p>
+      <div>
+        ${scheduling}
+      </div>
+      <iframe src="${pointRelais.URL_Plan}">
+    </section>
+    `;
   });
 });
