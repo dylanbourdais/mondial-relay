@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+}
+form {
+  display: flex;
+  justify-content: space-evenly;
+}
+#relay {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 50%;
+}
+li {
+  display: flex;
+  justify-content: space-around;
+  margin-left: auto;
+  margin-right: auto;
+  width: 85em;
+}

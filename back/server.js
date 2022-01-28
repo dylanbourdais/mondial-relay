@@ -179,14 +179,28 @@ const searchPointsRelais = async (body, res) => {
       "Dimanche",
     ];
     el.Horaires = {};
-
-    days.forEach((day, i) => {
+    let horaires = {};
+    days.forEach((day) => {
       el.Horaires[day] = Object.values(el[`Horaires_${day}`])
         .map((el) => {
           return el.replace(/\[object Object\]/g, "").split(",");
         })
         .toString()
         .split(",");
+      horaires[day] = [];
+      el.Horaires[day].forEach((hour) => {
+        if (hour !== "0000") {
+          if (hour[2] === "0" && hour[3] === "0") {
+            horaires[day].push(`${hour.slice(0, 2)}h`);
+          } else {
+            horaires[day].push(`${hour.slice(0, 2)}h${hour.slice(2)}`);
+          }
+        }
+      });
+      if (horaires[day].length !== 0) el.Horaires[day] = horaires[day];
+      else {
+        delete el.Horaires[day];
+      }
       delete el[`Horaires_${day}`];
     });
   });
