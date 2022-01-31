@@ -10,31 +10,37 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
     <link rel="stylesheet" href="public/css/index.css" />
     <title>ApiRelay</title>
   </head>
   <body>
-    <h1>relay points</h1>
-    <div id="form">
+    <body>
+      <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="mb-auto">
+          <nav class="nav nav-masthead justify-content-center float-md-end"> 
+            <a href="http://localhost:1234/"><img class="logo" src="./public/img/logo.png" alt="logo mondial relay " title="mondial relay "></a>
+            <a class="nav-link active" aria-current="page" href="http://localhost:1234/">Home</a>
+            <a class="nav-link active" aria-current="page" href="http://localhost:1234/">Contact</a>
+            <a class="nav-link active" aria-current="page" href="http://localhost:1234/">Sign up</a>
+            <a class="nav-link active" aria-current="page" href="http://localhost:1234/">Log in</a>
+          </nav>
+      </header>
+      </div>
       <form>
         <div class="form-group">
           <label>Enter country</label>
-          <select class="form-control" id="dropdown" name="Pays">
-            <option value="DE">Germany</option>
-            <option value="BE">Belgium</option>
-            <option value="ES">Espagna</option>
-            <option value="FR" selected>France</option>
-            <option value="NL">Netherlands</option>
-            <option value="PT">Portugal</option>
-          </select>
+          <input type="text" class="form-control" name="Pays" value="fr" />
         </div>
         <div class="form-group">
           <label>Enter city</label>
-          <input type="text" class="form-control" name="Ville" value="dinard" />
+          <input type="text" class="form-control" name="Ville" />
         </div>
         <div class="form-group">
           <label>Enter postal code</label>
-          <input type="text" class="form-control" name="CP" />
+          <input type="text" class="form-control" name="CP" value="" />
         </div>
         <div class="form-group">
           <label>Enter radius</label>
@@ -42,7 +48,7 @@
             type="number"
             class="form-control"
             name="RayonRecherche"
-            value="1"
+            value="100"
           />
         </div>
         <div class="form-group">
@@ -51,13 +57,67 @@
             type="number"
             class="form-control"
             name="NombreResultats"
-            value="1"
+            value="10"
           />
         </div>
         <button type="submit" class="btn btn-primary">Search</button>
       </form>
-    </div>
     <div id="relays"></div>
     <script type="module" src="public/js/index.js"></script>
   </body>
+  <footer class="footer">
+    <div class="left">
+      <h3><span>MR API</span></h3>
+      <p class="footer-links">
+        <a href="#">Home</a>
+        <a href="#">Contact</a>
+        <a href="#">Sign up</a>
+        <a href="#">Log in</a>
+      </p>
+  
+      <p class="company-name">MR Api &copy; 2022</p>
+    </div>
+  
+    <div class="center">
+      <div>
+        <i class="fa fa-map"></i>
+        <p><span>Avenue du Château Hébert</span>35800 Dinard</p>
+      </div>
+  
+      <div>
+        <i class="fa fa-envelope"></i>
+        <p><a href="#">contact@MRApi.com</a></p>
+      </div>
+  
+      <div>
+        <i class="fa fa-phone"></i>
+        <p>06 20 45 60 86</p>
+      </div>
+  </div>
+  
+  <div class="right">
+   
+    <p class="footer-company-about">
+    <span>About the company</span>
+    We are novice developers and we are learning to create APIs
+    </p>
+    
+    <div class="footer-icons">
+    
+    <a href="https://github.com/Kero3333" title="Kero3333"><i class="fa fa-github"></i></a>
+    <a href="https://github.com/dylanbourdais" title="dylanbourdais"><i class="fa fa-github"></i></a>
+    <a href="https://github.com/Roxas35" title="Roxas35"><i class="fa fa-github"></i></a>
+    <a href="https://github.com/corsairecypri" title="Corsairecypri"><i class="fa fa-github"></i></a>
+    
+    </div>
+    
+    </div>
+  
+  </div>
+  
+  
+  
+  
+    
+  </footer>
 </html>

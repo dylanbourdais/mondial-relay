@@ -64,7 +64,7 @@ form.addEventListener("submit", async (e) => {
       <p>${day} : ${schedule}</p>
       `;
     });
-    let address = pointRelais.Adresse.split(",");
+    let address = pointRelais.Adresse.toLowerCase().split(",");
     let addEl = "";
     address.forEach((el) => {
       addEl += `

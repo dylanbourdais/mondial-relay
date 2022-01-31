@@ -73,7 +73,7 @@ iframe {
   justify-content: space-evenly;
   flex-direction: column;
   /* border: solid 1px rgb(255, 0, 0); */
-  background-color: burlywood;
+  /* background-color: #eef0f3; */
   font-family: serif;
 }
 #relay {
@@ -83,7 +83,7 @@ iframe {
   margin-top: 1%;
   margin-left: 25%;
   margin-right: 25%;
-  background-color: blanchedalmond;
+  background-color: #ffffff;
 }
 
 .relay {
@@ -115,7 +115,7 @@ p {
   margin-left: auto;
   margin-right: auto;
   margin-top: 2%;
-  background-color: rgb(255, 190, 167);
+  background-color: rgb(255, 255, 255);
 }
 #schedule-text {
   display: flex;
@@ -133,4 +133,292 @@ iframe {
   width: 390px;
   height: 230px;
   justify-content: center;
+}
+
+body {
+  background-color: #eef0f3;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+}
+form {
+  display: flex;
+  justify-content: space-between;
+  padding: 4em;
+  background-color: #d5dee5;
+}
+
+li {
+  display: flex;
+  justify-content: space-around;
+  margin-left: auto;
+  margin-right: auto;
+  width: 85em;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.cover-container,
+.d-flex .w-100,
+.h-100,
+.p-3,
+.mx-auto,
+.flex-column {
+  background-color: #fff;
+}
+
+.mb-auto .logo {
+  width: 77px;
+  height: 72px;
+  margin: auto 12.4rem;
+}
+
+.nav-link {
+  display: inline-flex;
+  text-align: center;
+  color: #546a79;
+  padding: 26px 3rem 0px;
+}
+
+.mb-auto {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-link:focus,
+.nav-link:hover {
+  color: red;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  border-radius: 12px;
+  padding: 0px 32px;
+  margin-top: 20px;
+}
+
+.form-control {
+  width: 90%;
+}
+
+@media screen and (max-width: 1088px) and (min-width: 990px) {
+  .nav-link {
+    display: inline-flex;
+    text-align: center;
+    color: #546a79;
+    padding: 26px 2rem 0px;
+  }
+}
+
+@media screen and (max-width: 990px) and (min-width: 600px) {
+  .nav-link {
+    display: inline-flex;
+    text-align: center;
+    color: #546a79;
+    padding: 26px 14rem 0px;
+  }
+  form {
+    display: flow-root;
+    justify-content: space-between;
+    background-color: #d5dee5;
+  }
+  .form-control {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .nav-link {
+    display: inline-flex;
+    text-align: center;
+    color: #546a79;
+    padding: 26px 9rem 0px;
+  }
+  form {
+    display: flow-root;
+    justify-content: space-between;
+    background-color: #d5dee5;
+    text-align: center;
+  }
+  .form-control {
+    width: 100%;
+  }
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+}
+.footer {
+  background-color: #292c2f;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+  font: bold 19px sans-serif;
+  font-style: italic;
+
+  padding: 55px 50px;
+  margin-top: 80px;
+}
+
+.footer .left,
+.footer .center,
+.footer .right {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.footer .left {
+  width: 40%;
+}
+
+.footer h3 {
+  color: #ffffff;
+  font-family: "Cinzel", serif;
+  margin: 0;
+}
+
+.footer h3 span {
+  color: #ffffff;
+}
+
+.footer .footer-links {
+  color: #ffffff;
+  margin: 20px 0 12px;
+  padding: 0;
+}
+
+.footer .footer-links a {
+  display: inline-block;
+  line-height: 2.2;
+  text-decoration: none;
+  color: inherit;
+  font-family: "Cinzel", serif;
+  letter-spacing: 1.2px;
+}
+
+.footer .company-name {
+  color: #ffffff;
+  font-size: 25px;
+  font-family: "Cinzel", serif;
+  font-weight: normal;
+  margin: 0;
+}
+
+.footer .center {
+  width: 35%;
+  font-family: "Cinzel", serif;
+}
+
+.footer .center i {
+  background-color: #33383b;
+  color: #ffffff;
+  font-size: 25px;
+  width: 38px;
+  height: 37px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 42px;
+  margin: 10px 15px;
+  vertical-align: middle;
+}
+
+.footer .center i.fa-envelope {
+  font-size: 17px;
+  line-height: 38px;
+}
+
+.footer .center p {
+  display: inline-block;
+  color: #ffffff;
+  vertical-align: middle;
+  margin: 0;
+}
+
+.footer .center p span {
+  display: block;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 2;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+}
+
+.footer .right {
+  width: 20%;
+  font-family: "Cinzel", serif;
+}
+
+.footer .footer-company-about {
+  line-height: 20px;
+  color: rgb(120, 120, 120, 0.8);
+  font-size: 15px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.footer .footer-company-about span {
+  display: block;
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.footer .footer-icons {
+  margin-top: 25px;
+}
+
+.footer .footer-icons a {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  background-color: #33383b;
+  border-radius: 2px;
+  font-size: 50px;
+  color: #ffffff;
+  text-align: center;
+  line-height: 35px;
+
+  margin-right: 20px;
+  margin-bottom: 5px;
+}
+
+@media (max-width: 880px) {
+  .footer {
+    font: bold 14px sans-serif;
+  }
+
+  .footer .left,
+  .footer .center,
+  .footer .right {
+    display: block;
+    width: 100%;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .footer .center i {
+    margin-left: 0;
+  }
+  .main {
+    line-height: normal;
+    font-size: auto;
+  }
 }
