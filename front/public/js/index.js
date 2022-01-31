@@ -64,20 +64,41 @@ form.addEventListener("submit", async (e) => {
       <p>${day} : ${schedule}</p>
       `;
     });
+    let address = pointRelais.Adresse.split(",");
+    let addEl = "";
+    address.forEach((el) => {
+      addEl += `
+      <div id="address-content">
+        <p>${el}</p>
+      </div>
+      `;
+    });
 
     document.querySelector("#relays").innerHTML += `
     <section id="relay">
-      <p>Number of the relay point : ${pointRelais.Num}</p>
-      <p>Latitude : ${pointRelais.Latitude}</p>
-      <p>Longitude : ${pointRelais.Longitude}</p>
-      <p>Adress : ${pointRelais.Adresse}</p>
-      <p>Distance : ${pointRelais.Distance}m</p>
-      <p><img src=${pointRelais.URL_Photo} alt="picture not available"></p>
-      <p>Schedule :</p>
-      <div>
+      <div class="relay">
+        <img src=${pointRelais.URL_Photo} alt="picture not available">
+      </div>
+      <div class="relay">
+        <p>no. ${pointRelais.Num}</p>
+      </div>
+      <div class="relay">
+        <p>Latitude : ${pointRelais.Latitude}, Longitude : ${pointRelais.Longitude}</p>
+      </div>
+      <div class="relay" id="address">
+        <p id="address-text">Address :</p>
+        ${addEl}
+      </div>
+      <div class="relay">
+        <p>Distance : ${pointRelais.Distance}m</p>
+      </div>
+      <div class="relay" id="schedule">
+        <p id="schedule-text">Schedule :</p>
         ${scheduling}
       </div>
-      <iframe src="${pointRelais.URL_Plan}">
+      <div class="relay" id="map">
+        <iframe src="${pointRelais.URL_Plan}">
+      </div>
     </section>
     `;
   });

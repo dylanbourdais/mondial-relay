@@ -3,25 +3,134 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+#form {
+  display: flex;
+  justify-content: center;
+}
 h1 {
   display: flex;
   justify-content: center;
 }
 form {
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+/* #relays {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
 }
 #relay {
   display: flex;
   flex-direction: column;
-  width: 50%;
-  height: 50%;
+  justify-content: center;
+  margin-top: 1px;
+  border: solid;
+  border-width: 1px;
+  border-color: rgb(0, 0, 0);
+  height: 400px;
 }
-li {
+.relay {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  width: 12.5%;
+  border-left: solid;
+  border-width: 1px;
+  border-color: rgb(0, 0, 0);
+  justify-content: center;
+} */
+/* img {
+  width: 100%;
+}
+p {
+  font-size: small;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+#adress {
+  display: flex;
+}
+#schedule {
+  display: flex;
+  flex-direction: column;
+}
+#map {
+  width: 30%;
+  height: 100%;
+}
+
+iframe {
+  display: flex;
+  justify-content: center;
+  height: 50%;
+} */
+
+#relays {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  /* border: solid 1px rgb(255, 0, 0); */
+  background-color: burlywood;
+  font-family: serif;
+}
+#relay {
+  display: flex;
+  flex-direction: column;
+  /* border: solid 1px rgb(0, 165, 36); */
+  margin-top: 1%;
+  margin-left: 25%;
+  margin-right: 25%;
+  background-color: blanchedalmond;
+}
+
+.relay {
+  display: flex;
+  justify-content: center;
+  /* border: solid 1px black; */
+}
+p {
+  margin-top: 1px;
+  margin-bottom: 5px;
+}
+#address {
+  display: flex;
+  flex-direction: column;
   margin-left: auto;
   margin-right: auto;
-  width: 85em;
+}
+#address-text {
+  display: flex;
+  justify-content: center;
+}
+#address-content {
+  display: flex;
+  justify-content: center;
+}
+#schedule {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2%;
+  background-color: rgb(255, 190, 167);
+}
+#schedule-text {
+  display: flex;
+  justify-content: center;
+}
+
+#map {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  height: 300px;
+}
+iframe {
+  width: 390px;
+  height: 230px;
+  justify-content: center;
 }
