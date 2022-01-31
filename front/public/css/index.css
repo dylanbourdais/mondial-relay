@@ -17,84 +17,23 @@ form {
   justify-content: space-around;
 }
 
-/* #relays {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  width: 100%;
-}
-#relay {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 1px;
-  border: solid;
-  border-width: 1px;
-  border-color: rgb(0, 0, 0);
-  height: 400px;
-}
-.relay {
-  display: flex;
-  flex-direction: column;
-  width: 12.5%;
-  border-left: solid;
-  border-width: 1px;
-  border-color: rgb(0, 0, 0);
-  justify-content: center;
-} */
-/* img {
-  width: 100%;
-}
-p {
-  font-size: small;
-  margin-top: 1px;
-  margin-bottom: 1px;
-}
-#adress {
-  display: flex;
-}
-#schedule {
-  display: flex;
-  flex-direction: column;
-}
-#map {
-  width: 30%;
-  height: 100%;
-}
-
-iframe {
-  display: flex;
-  justify-content: center;
-  height: 50%;
-} */
-
 #relays {
   display: flex;
-  justify-content: space-evenly;
   flex-direction: column;
-  /* border: solid 1px rgb(255, 0, 0); */
-  /* background-color: #eef0f3; */
+  justify-content: center;
   font-family: serif;
+  background-color: #ffffff;
 }
 #relay {
   display: flex;
   flex-direction: column;
-  /* border: solid 1px rgb(0, 165, 36); */
-  margin-top: 1%;
-  margin-left: 25%;
-  margin-right: 25%;
-  background-color: #ffffff;
 }
 
 .relay {
   display: flex;
   justify-content: center;
-  /* border: solid 1px black; */
 }
-p {
-  margin-top: 1px;
-  margin-bottom: 5px;
-}
+
 #address {
   display: flex;
   flex-direction: column;
@@ -115,25 +54,24 @@ p {
   margin-left: auto;
   margin-right: auto;
   margin-top: 2%;
-  background-color: rgb(255, 255, 255);
 }
 #schedule-text {
   display: flex;
   justify-content: center;
 }
 
-#map {
+#plan {
   display: flex;
   flex-direction: column;
   margin-left: auto;
   margin-right: auto;
   height: 300px;
 }
-iframe {
+/* iframe {
   width: 390px;
   height: 230px;
   justify-content: center;
-}
+} */
 
 body {
   background-color: #eef0f3;
@@ -253,7 +191,6 @@ p {
 }
 
 footer {
-  position: fixed;
   bottom: 0;
 }
 .footer {
@@ -421,4 +358,27 @@ a:hover {
     line-height: normal;
     font-size: auto;
   }
+}
+#disp {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+#map-area {
+  display: flex;
+  width: 50%;
+  min-height: 500px;
+}
+#map {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+.marker {
+  display: block;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
 }
