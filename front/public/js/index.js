@@ -1,4 +1,5 @@
 const axios = require("axios");
+require("dotenv").config();
 
 const form = document.querySelector("form");
 
@@ -53,6 +54,47 @@ form.addEventListener("submit", async (e) => {
 
   document.querySelector("#relays").innerHTML = ``;
   data.forEach((pointRelais) => {
+    const days = Object.keys(pointRelais.Horaires);
+    let scheduling = "";
+
+    days.forEach((day) => {
+      let schedule = "";
+      pointRelais.Horaires[day].forEach((hour, i) => {
+        if (i === 1 || i === 3) {
+          schedule += `- ${hour} `;
+        } else {
+          schedule += `${hour} `;
+        }
+      });
+      scheduling += `
+      <p>${day} : ${schedule}</p>
+      `;
+    });
+    let address = pointRelais.Adresse.toLowerCase().split(",");
+    let addEl = "";
+    address.forEach((el) => {
+      addEl += `
+      <div id="address-content">
+        <p>${el}</p>
+      </div>
+      `;
+    });
+
+    document.querySelector("#relays").innerHTML += `
+    <section id="relay">
+      <div class="relay">
+        <p>no. ${pointRelais.Num}</p>
+      </div>
+      <div class="relay" id="address">
+        <p id="address-text">Address :</p>
+        ${pointRelais.Adresse}
+      </div>
+      <div class="relay">
+        <p>Distance : ${pointRelais.Distance}m</p>
+      </div>
+    </section>
+    `;
+
     let relayInfo = {
       type: "Relay",
       properties: {
@@ -70,7 +112,6 @@ form.addEventListener("submit", async (e) => {
     };
     geojson.relays.push(relayInfo);
   });
-  console.log(geojson);
   mapboxgl.accessToken =
     "pk.eyJ1Ijoia2VybzMzMzMiLCJhIjoiY2t6MmgwZThnMGM1dDJxb2R3aW1iZ2hvMSJ9.x9p6pHXQRllrCII-MLsjnw";
 
@@ -99,10 +140,14 @@ form.addEventListener("submit", async (e) => {
       const pointRelais = data.filter((relay) => {
         return relay.Num === marker.properties.num;
       });
+      console.log(pointRelais[0].Horaires);
       const days = Object.keys(pointRelais[0].Horaires);
       let scheduling = "";
+      console.log("ici");
 
       days.forEach((day) => {
+        console.log("ici2");
+
         let schedule = "";
         pointRelais[0].Horaires[day].forEach((hour, i) => {
           if (i === 1 || i === 3) {

@@ -22,11 +22,20 @@ form {
   flex-direction: column;
   justify-content: center;
   font-family: serif;
-  background-color: #ffffff;
+  background-color: #eef0f3;
+  overflow-y: scroll;
+  max-height: 500px;
+  max-width: 25%;
 }
 #relay {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  border: 1px solid black;
+}
+#relay:hover {
+  background-color: white;
+  cursor: pointer;
 }
 
 .relay {
@@ -59,19 +68,6 @@ form {
   display: flex;
   justify-content: center;
 }
-
-#plan {
-  display: flex;
-  flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
-  height: 300px;
-}
-/* iframe {
-  width: 390px;
-  height: 230px;
-  justify-content: center;
-} */
 
 body {
   background-color: #eef0f3;
