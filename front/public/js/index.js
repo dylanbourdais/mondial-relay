@@ -46,42 +46,20 @@ form.addEventListener("submit", async (e) => {
     return;
   }
   const { data } = rep;
-
   const geojson = {
     type: "Relay",
     relays: [],
   };
 
+  let listRelay = "";
+  let detailRelay = [];
+  let id = 0;
+
   document.querySelector("#relays").innerHTML = ``;
+
   data.forEach((pointRelais) => {
-    const days = Object.keys(pointRelais.Horaires);
-    let scheduling = "";
-
-    days.forEach((day) => {
-      let schedule = "";
-      pointRelais.Horaires[day].forEach((hour, i) => {
-        if (i === 1 || i === 3) {
-          schedule += `- ${hour} `;
-        } else {
-          schedule += `${hour} `;
-        }
-      });
-      scheduling += `
-      <p>${day} : ${schedule}</p>
-      `;
-    });
-    let address = pointRelais.Adresse.toLowerCase().split(",");
-    let addEl = "";
-    address.forEach((el) => {
-      addEl += `
-      <div id="address-content">
-        <p>${el}</p>
-      </div>
-      `;
-    });
-
-    document.querySelector("#relays").innerHTML += `
-    <section id="relay">
+    listRelay += `
+    <section class="relay-section" id=${id}>
       <div class="relay">
         <p>no. ${pointRelais.Num}</p>
       </div>
@@ -95,12 +73,68 @@ form.addEventListener("submit", async (e) => {
     </section>
     `;
 
+    document.querySelector("#relays").innerHTML = listRelay;
+
+    const days = Object.keys(pointRelais.Horaires);
+    let scheduling = "";
+
+    days.forEach((day) => {
+      let schedule = "";
+      pointRelais.Horaires[day].forEach((hour, i) => {
+        if (i === 1 || i === 3) {
+          schedule += `- ${hour} `;
+        } else {
+          schedule += `${hour} `;
+        }
+      });
+      scheduling += `
+          <p>${day} : ${schedule}</p>
+          `;
+    });
+    let address = pointRelais.Adresse.toLowerCase().split(",");
+    let addEl = "";
+    address.forEach((el) => {
+      addEl += `
+          <div id="address-content">
+            <p>${el}</p>
+          </div>
+          `;
+    });
+
+    detailRelay.push(`
+        <section class="relay-section" id=${id}>
+          <div class="relay">
+            <img src=${pointRelais.URL_Photo} alt="picture not available">
+          </div>
+          <div class="relay">
+            <p>no. ${pointRelais.Num}</p>
+          </div>
+          <div class="relay">
+            <p>Latitude : ${pointRelais.Latitude}, Longitude : ${
+      pointRelais.Longitude
+    }</p>
+          </div>
+          <div class="relay" id="address">
+            <p id="address-text">Address :</p>
+            ${addEl}
+          </div>
+          <div class="relay">
+            <p>Distance : ${pointRelais.Distance / 1000}km</p>
+          </div>
+          <div class="relay" id="schedule">
+            <p id="schedule-text">Schedule :</p>
+            ${scheduling}
+          </div>
+
+        </section>
+        `);
+
     let relayInfo = {
       type: "Relay",
       properties: {
         message: pointRelais.Adresse,
         iconSize: [60, 60],
-        num: pointRelais.Num,
+        id: id,
       },
       geometry: {
         type: "Point",
@@ -111,7 +145,23 @@ form.addEventListener("submit", async (e) => {
       },
     };
     geojson.relays.push(relayInfo);
+    id++;
   });
+
+  const addEvent = (id, listRelay, detailRelay) => {
+    for (let i = 0; i < id; i++) {
+      document.getElementById(`${i}`).addEventListener("click", (e) => {
+        document.querySelector("#relays").innerHTML = detailRelay[i];
+        document.getElementById(`${i}`).addEventListener("click", (e) => {
+          document.querySelector("#relays").innerHTML = listRelay;
+          addEvent(id, listRelay, detailRelay);
+        });
+      });
+    }
+  };
+
+  addEvent(id, listRelay, detailRelay);
+
   mapboxgl.accessToken =
     "pk.eyJ1Ijoia2VybzMzMzMiLCJhIjoiY2t6MmgwZThnMGM1dDJxb2R3aW1iZ2hvMSJ9.x9p6pHXQRllrCII-MLsjnw";
 
@@ -136,67 +186,8 @@ form.addEventListener("submit", async (e) => {
     el.style.backgroundSize = "100%";
 
     el.addEventListener("click", () => {
-      document.querySelector("#relays").innerHTML = "";
-      const pointRelais = data.filter((relay) => {
-        return relay.Num === marker.properties.num;
-      });
-      console.log(pointRelais[0].Horaires);
-      const days = Object.keys(pointRelais[0].Horaires);
-      let scheduling = "";
-      console.log("ici");
-
-      days.forEach((day) => {
-        console.log("ici2");
-
-        let schedule = "";
-        pointRelais[0].Horaires[day].forEach((hour, i) => {
-          if (i === 1 || i === 3) {
-            schedule += `- ${hour} `;
-          } else {
-            schedule += `${hour} `;
-          }
-        });
-        scheduling += `
-      <p>${day} : ${schedule}</p>
-      `;
-      });
-      let address = pointRelais[0].Adresse.toLowerCase().split(",");
-      let addEl = "";
-      address.forEach((el) => {
-        addEl += `
-      <div id="address-content">
-        <p>${el}</p>
-      </div>
-      `;
-      });
-
-      document.querySelector("#relays").innerHTML += `
-    <section id="relay">
-      <div class="relay">
-        <img src=${pointRelais[0].URL_Photo} alt="picture not available">
-      </div>
-      <div class="relay">
-        <p>no. ${pointRelais[0].Num}</p>
-      </div>
-      <div class="relay">
-        <p>Latitude : ${pointRelais[0].Latitude}, Longitude : ${
-        pointRelais[0].Longitude
-      }</p>
-      </div>
-      <div class="relay" id="address">
-        <p id="address-text">Address :</p>
-        ${addEl}
-      </div>
-      <div class="relay">
-        <p>Distance : ${pointRelais[0].Distance / 1000}km</p>
-      </div>
-      <div class="relay" id="schedule">
-        <p id="schedule-text">Schedule :</p>
-        ${scheduling}
-      </div>
-
-    </section>
-    `;
+      document.querySelector("#relays").innerHTML =
+        detailRelay[marker.properties.id];
     });
 
     // Add markers to the map.
