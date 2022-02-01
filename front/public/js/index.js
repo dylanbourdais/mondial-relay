@@ -58,17 +58,29 @@ form.addEventListener("submit", async (e) => {
   document.querySelector("#relays").innerHTML = ``;
 
   data.forEach((pointRelais) => {
+    let addressForm = pointRelais.Adresse.split(",");
+    addressForm.splice(4, 1);
+    addressForm.shift();
+    const city = addressForm.splice(0, 2);
+
     listRelay += `
     <section class="relay-section" id=${id}>
-      <div class="relay">
+      <div id="relay-head">
+      <div id="relay-name">
+      <p>${pointRelais.Adresse.split(",")[4]}
+      </div>
+      <div class="relay" id="relay-num">
         <p>no. ${pointRelais.Num}</p>
       </div>
+      </div>
+      <div id="relay-body">
       <div class="relay" id="address">
-        <p id="address-text">Address :</p>
-        ${pointRelais.Adresse}
+        <p>${city.toString()}</p>
+        <p>${addressForm.toString()}</p>
       </div>
       <div class="relay">
-        <p>Distance : ${pointRelais.Distance}m</p>
+        <p>Distance : ${pointRelais.Distance / 1000}km</p>
+      </div>
       </div>
     </section>
     `;
@@ -91,41 +103,34 @@ form.addEventListener("submit", async (e) => {
           <p>${day} : ${schedule}</p>
           `;
     });
-    let address = pointRelais.Adresse.toLowerCase().split(",");
-    let addEl = "";
-    address.forEach((el) => {
-      addEl += `
-          <div id="address-content">
-            <p>${el}</p>
-          </div>
-          `;
-    });
+    let address = pointRelais.Adresse.replace(/,/g, ", ");
 
     detailRelay.push(`
-        <section class="relay-section" id=${id}>
-          <div class="relay">
-            <img src=${pointRelais.URL_Photo} alt="picture not available">
-          </div>
-          <div class="relay">
-            <p>no. ${pointRelais.Num}</p>
-          </div>
-          <div class="relay">
-            <p>Latitude : ${pointRelais.Latitude}, Longitude : ${
-      pointRelais.Longitude
-    }</p>
-          </div>
-          <div class="relay" id="address">
-            <p id="address-text">Address :</p>
-            ${addEl}
-          </div>
-          <div class="relay">
-            <p>Distance : ${pointRelais.Distance / 1000}km</p>
-          </div>
+    <section class="relay-section relay-detail" id=${id}>
+      <div id="relay-head">
+      <div id="relay-name">
+      <p>${pointRelais.Adresse.split(",")[4]}
+      </div>
+      <div class="relay" id="relay-num">
+        <p>no. ${pointRelais.Num}</p>
+      </div>
+      </div>
+      <div id="relay-body">
+      <div class="relay" id="address">
+        <p>${city.toString()}</p>
+        <p>${addressForm.toString()}</p>
+      </div>
+      <div class="relay">
+        <p>Distance : ${pointRelais.Distance / 1000}km</p>
+      </div>
+      </div>
+      <div class="relay">
+        <img src=${pointRelais.URL_Photo} alt="picture not available">
+      </div>  
           <div class="relay" id="schedule">
-            <p id="schedule-text">Schedule :</p>
+            <p id="schedule-text">Horaires :</p>
             ${scheduling}
           </div>
-
         </section>
         `);
 
