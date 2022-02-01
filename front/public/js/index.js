@@ -188,6 +188,12 @@ form.addEventListener("submit", async (e) => {
     el.addEventListener("click", () => {
       document.querySelector("#relays").innerHTML =
         detailRelay[marker.properties.id];
+      document
+        .getElementById(`${marker.properties.id}`)
+        .addEventListener("click", () => {
+          document.querySelector("#relays").innerHTML = listRelay;
+          addEvent(id, listRelay, detailRelay);
+        });
     });
 
     // Add markers to the map.
