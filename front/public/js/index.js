@@ -105,7 +105,7 @@ form.addEventListener("submit", async (e) => {
     let address = pointRelais.Adresse.replace(/,/g, ", ");
 
     detailRelay.push(`
-    <section class="relay-section relay-detail" id=${id}>
+    <section class="relay-section" id=${id}>
       <div id="relay-head">
       <div id="relay-name">
       <p>${pointRelais.Adresse.split(",")[4]}

@@ -47,7 +47,7 @@ form {
   background-color: #eef0f3;
   overflow-y: scroll;
   max-height: 500px;
-  max-width: 25%;
+  width: 25%;
 }
 .relay-section {
   display: flex;
