@@ -64,7 +64,7 @@ app.post("/login", async (req, res) => {
     return res.status(404).send("wrong email or wrong password");
   }
   const token = jwt.sign({ user: User }, "secretkey", {
-    algorithms: "HS256",
+    algorithm: "HS256",
     expiresIn: "30000000s",
   });
   res.send({ token });
