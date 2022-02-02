@@ -1,20 +1,28 @@
 const axios = require("axios");
 
-let rep = "";
+const token = localStorage.getItem("token");
 
-const x = async (token) => {
-  const options = {
-    method: "get",
-    url: "http://localhost:3001/profil",
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  };
-
+const verifyUser = async (token) => {
   try {
-    rep = await axios.get(options);
+    const options = {
+      method: "post",
+      url: "http://localhost:3001/profil",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    };
+    rep = await axios(options);
+    console.log(rep);
   } catch (err) {
     console.log(err.message);
   }
-  console.log(rep);
 };
+
+verifyUser(token);
+
+const signOut = document.querySelector("#signOut");
+
+signOut.addEventListener("click", (e) => {
+  localStorage.removeItem("token");
+  document.location.href = "http://localhost:1234/login.html";
+});

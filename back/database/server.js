@@ -1,5 +1,6 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const md5 = require("md5");
 
 const connexion = require("./db/connect");
 const User = require("./model/User.js");
@@ -14,7 +15,7 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:1234");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept, authorization"
   );
   next();
 });
@@ -25,12 +26,12 @@ app.get("", (req, res) => {
 
 app.post("/register", async (req, res) => {
   console.log(req.body);
-
+  const passMd5 = md5(req.body.password);
   const newUser = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
-    password: req.body.password,
+    password: passMd5,
   });
 
   const token = jwt.sign({ user: User }, "secretkey", {
@@ -48,9 +49,11 @@ app.post("/register", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
+  const passMd5 = md5(req.body.pass);
+
   const user = {
     email: req.body.email,
-    pass: req.body.pass,
+    pass: passMd5,
   };
   console.log(user);
   const rep = await User.find({
@@ -61,17 +64,15 @@ app.post("/login", async (req, res) => {
     return res.status(404).send("wrong email or wrong password");
   }
   const token = jwt.sign({ user: User }, "secretkey", {
-    algorithm: "HS256",
-    expiresIn: "3000s",
+    algorithms: "HS256",
+    expiresIn: "30000000s",
   });
   res.send({ token });
 });
 
 const verifyToken = (req, res, next) => {
-  console.log("ici3");
   const bearerHeader = req.headers["authorization"];
-  console.log(bearerHeader);
-
+  console.log("bearerHeader = " + bearerHeader);
   if (typeof bearerHeader !== undefined) {
     const bearer = bearerHeader.split(" ");
     const bearerToken = bearer[1];
@@ -82,17 +83,18 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-app.get("/profil", verifyToken, (req, res) => {
-  console.log("ici");
-  jwt.verify(req.token, "secretkey", (err) => {
-    if (err) {
-      console.log("ici1");
-      res.sendStatus(403);
-    } else {
-      console.log("ici2");
-      res.status(200).send("ok");
-    }
-  });
+app.post("/profil", verifyToken, (req, res) => {
+  const decoded = jwt.verify(req.token, "secretkey", { algorithms: ["HS256"] });
+  console.log(decoded);
+  // jwt.verify(req.token, "secretkey", (err, authUser) => {
+  //   if (err) {
+  //     console.log(err.message);
+  //     res.status(403).send("not ok");
+  //   } else {
+  //     console.log(authUser);
+  //     res.status(200).send("ok");
+  //   }
+  // });
 });
 
 app.listen(3001, () => console.log("listenning on port 3001"));
