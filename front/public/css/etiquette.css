@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+h1 {
+  display: flex;
+  justify-content: center;
+}
+.relay {
+  display: flex;
+  justify-content: center;
+  /* border: solid 1px black; */
+}
+p {
+  margin-top: 1px;
+  margin-bottom: 5px;
+}
+
+body {
+  background-color: #eef0f3;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+}
+li {
+  display: flex;
+  justify-content: space-around;
+  margin-left: auto;
+  margin-right: auto;
+  width: 85em;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.cover-container,
+.d-flex .w-100,
+.h-100,
+.p-3,
+.mx-auto,
+.flex-column {
+  background-color: #fff;
+}
+
+.mb-auto .logo {
+  width: 77px;
+  height: 72px;
+  margin: auto 12.4rem;
+}
+
+.nav-link {
+  display: inline-flex;
+  text-align: center;
+  color: #546a79;
+  padding: 26px 3rem 0px;
+}
+
+.mb-auto {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-link:focus,
+.nav-link:hover {
+  color: red;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #ce1b1b;
+  border-color: #000000;
+  font-size: 50px;
+  border-radius: 10px;
+  padding: 0px 32px;
+  margin-top: 65px;
+}
+
+.contain {
+  display: flex;
+  justify-content: center;
+  justify-content: space-evenly;
+  margin: 25px;
+}
+
+.title {
+  text-align: center;
+  font-size: 30px;
+  padding: 40px;
+}
+
+.left {
+  display: flex;
+  justify-content: center;
+  justify-content: space-around;
+  margin: 50px;
+}
+
+.right {
+  display: flex;
+  justify-content: center;
+  justify-content: space-around;
+  margin: 50px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  margin: 25px;
+}
+
+@media screen and (max-width: 990px) and (min-width: 600px) {
+  .nav-link {
+    display: inline-flex;
+    text-align: center;
+    color: #546a79;
+    padding: 26px 14rem 0px;
+  }
+  form {
+    display: flow-root;
+    justify-content: space-between;
+    background-color: #d5dee5;
+  }
+  .form-control {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .nav-link {
+    display: inline-flex;
+    text-align: center;
+    color: #546a79;
+    padding: 26px 9rem 0px;
+  }
+  form {
+    display: flow-root;
+    justify-content: space-between;
+    background-color: #d5dee5;
+    text-align: center;
+  }
+  .form-control {
+    width: 100%;
+  }
+}

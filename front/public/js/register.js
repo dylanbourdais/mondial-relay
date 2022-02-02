@@ -16,25 +16,33 @@ form.addEventListener("submit", async (e) => {
   params.pass.push(e.target.pass.value);
   params.pass.push(e.target.passConfirm.value);
 
-  const newUser = {
-    firstName: params.firstName,
-    lastName: params.lastName,
-    email: params.email[0],
-    password: params.pass[0],
-  };
-  const options = {
-    method: "post",
-    url: "http://localhost:3001/register/",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data: newUser,
-  };
+  if (params.email[0] !== params.email[1]) {
+    return console.log("email invalide");
+  }
+  if (params.pass[0] !== params.pass[1]) {
+    return console.log("password invalide");
+  } else {
+    const newUser = {
+      firstName: params.firstName,
+      lastName: params.lastName,
+      email: params.email[0],
+      password: params.pass[0],
+    };
+    const options = {
+      method: "post",
+      url: "http://localhost:3001/register/",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: newUser,
+    };
 
-  try {
-    const rep = await axios(options);
-    console.log("NewUser Send");
-  } catch (err) {
-    console.log(err.message);
+    try {
+      const rep = await axios(options);
+      console.log(rep);
+      localStorage.setItem("token", JSON.stringify(rep.data.token));
+    } catch (err) {
+      console.log(err.message);
+    }
   }
 });

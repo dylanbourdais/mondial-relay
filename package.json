@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run back\" \"npm run front\"",
-    "front": "parcel front/index.html front/register.html",
+    "front": "parcel front/index.html front/register.html front/profil.html",
     "back": "nodemon back/api/server.js & nodemon back/database/server.js"
   },
   "keywords": [],
@@ -17,6 +17,7 @@
     "dotenv": "^15.0.0",
     "express": "^4.17.2",
     "joi": "^17.5.0",
+    "jsonwebtoken": "^8.5.1",
     "jstoxml": "^2.2.7",
     "md5": "^2.3.0",
     "mongoose": "^6.1.9",

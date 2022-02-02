@@ -1,10 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body></body>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="public/css/etiquette.css"/>
+    <title>Etiquette</title>
+    
+</head>
+
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="mb-auto">
+      <a href="http://localhost:1234/"><img class="logo" src="./public/img/logo.png" alt="logo mondial relay " title="mondial relay "></a>
+        <nav class="nav nav-masthead justify-content-center float-md-end"> 
+          <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+          <a class="nav-link active" aria-current="page" href="etiquette.html">Etiquette</a>
+          <a class="nav-link active" aria-current="page" href="login.html">Log in</a>
+          <a class="nav-link active" aria-current="page" href="register.html">Sign up</a>
+        </nav>
+      </header>
+    </div>
+
+  <form>
+    <div class="contain">
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Collect Mod</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+          <option>CCC</option>
+          <option>CDR</option>
+          <option>CDS</option>
+          <option selected>REL</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Delivery Mod</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+          <option>LCC</option>
+          <option>LD1</option>
+          <option>LDS</option>
+          <option selected>24R</option>
+          <option>24L</option>
+          <option>ESP</option>
+          <option>DRI</option>
+        </select>
+      </div>
+    </div>
+
+  <div class="title">Sender</div>
+    <div class="left">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Sender's Langage</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Langage" value="FR">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Sender's Full Name</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Full name">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Sender's Street</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Street">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Sender's Town</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Town">
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Sender's Zip</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Zip">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Sender's Country</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Country" value="FR">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Sender's Phone Number</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Phone Number">
+      </div>
+    </div>
+
+
+  <div class="title">Recipient</div>
+    <div class="left">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Recipient Langage</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Langage" value="FR">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Recipient's Full Name</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Full Name">
+      </div>
+
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Recipient's Street</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Street">
+      </div>
+    </div>
+
+
+    <div class="right">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Recipient's Town</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Town">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Recipient's Zip</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Zip">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Recipient's Country</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Country">
+      </div>
+    </div>
+
+
+  <div class="title">More Informations</div>
+    <div class="left">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Weight</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Weight in grams" min="15">
+      </div>
+      
+      
+      <div class="form-group">
+        <label for="exampleInputPassword1">Number Package</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Number">
+      </div>
+
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Cash on delivery</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Price">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Package Relay Country</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="XX">
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Package Relay</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" value="AUTO">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Delivery Relay Country</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" value="FR">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Delivery Relay</label>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Number Relay">
+      </div>
+    </div>
+
+  <div class="button">
+    <button type="button" class="btn btn-primary btn-lg">Submit</button>
+    </form>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
 </html>
