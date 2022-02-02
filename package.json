@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run back\" \"npm run front\"",
-    "front": "parcel front/index.html",
-    "back": "nodemon back/server.js"
+    "front": "parcel front/index.html front/register.html",
+    "back": "nodemon back/api/server.js & nodemon back/database/server.js"
   },
   "keywords": [],
   "author": "",
@@ -14,10 +14,12 @@
   "dependencies": {
     "axios": "^0.24.0",
     "concurrently": "^7.0.0",
+    "dotenv": "^15.0.0",
     "express": "^4.17.2",
     "joi": "^17.5.0",
     "jstoxml": "^2.2.7",
     "md5": "^2.3.0",
+    "mongoose": "^6.1.9",
     "nodemon": "^2.0.15",
     "parcel": "^2.2.1",
     "xml-js": "^1.6.11"

@@ -37,8 +37,8 @@
       <header class="mb-auto">
           <nav class="nav nav-masthead justify-content-center float-md-end"> 
             <a href="http://localhost:1234/"><img class="logo" src="./public/img/logo.png" alt="logo mondial relay " title="mondial relay "></a>
-            <a class="nav-link active" aria-current="page" href="">Home</a>
-            <a class="nav-link active" aria-current="page" href="">Etiquette</a>
+            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+            <a class="nav-link active" aria-current="page" href="etiquette.html">Etiquette</a>
             <a class="nav-link active" aria-current="page" href="login.html">Log in</a> 
             <a class="nav-link active" aria-current="page" href="register.html">Sign up</a>
           </nav>
@@ -52,7 +52,7 @@
 
     <div class="row">
       <div class="col-md-12 col-md-6">
-        <form class="needs-validation" novalidate>
+        <form>
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="firstName" class="form-label">First name</label>
@@ -73,7 +73,7 @@
 
             <div class="col-12">
               <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
+              <input type="email" class="form-control" name="mail" id="email" placeholder="you@example.com">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
@@ -81,7 +81,7 @@
 
             <div class="col-12">
               <label for="email" class="form-label">Email Confirm <span class="text-muted">(Optional)</span></label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
+              <input type="email" class="form-control" name="mailConfirm" id="email" placeholder="you@example.com">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
@@ -90,12 +90,12 @@
 
             <div class="col-12">
               <label for="inputPassword" class="col-sm-2 col-form-label">Password </label>
-                <input type="password" class="form-control" id="inputPassword">
+                <input type="password" class="form-control" name="pass" id="inputPassword">
               </div>
 
               <div class="col-12">
                 <label for="inputPassword" class="col-sm-2 col-form-label">Password Confirm </label>
-                  <input type="password" class="form-control" id="inputPassword">
+                  <input type="password" class="form-control" name="passConfirm" id="inputPassword">
                 </div>
 
 
@@ -107,7 +107,7 @@
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+  <script type="module" src="./public/js/register.js"></script>
 
 </body>
 
