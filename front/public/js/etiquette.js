@@ -46,7 +46,7 @@ form.addEventListener("submit", async (e) => {
     const etiquette = {
       num: rep.data.ExpeditionNum,
       url: rep.data.URL_Etiquette,
-      emailUser: localStorage.getItem("emailUser"),
+      emailUser: localStorage.getItem("emailUser").replace(/"/g, ""),
     };
 
     try {

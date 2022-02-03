@@ -73,19 +73,19 @@ app.post("/login", async (req, res) => {
   if (!rep.length) {
     return res.status(404).send("wrong email or wrong password");
   }
-  const token = jwt.sign({ user: User }, "secretkey", {
-    algorithm: "HS256",
-    expiresIn: "30000000s",
+  const token = jwt.sign(user, "secretkey", {
+    alg: "HS256",
+    typ: "JWT",
   });
   res.send({ emailUser: user.email, token });
 });
 
 const verifyToken = (req, res, next) => {
   const bearerHeader = req.headers["authorization"];
-  console.log("bearerHeader = " + bearerHeader);
   if (typeof bearerHeader !== undefined) {
     const bearer = bearerHeader.split(" ");
     const bearerToken = bearer[1];
+    console.log("bearerToken = " + bearerToken);
     req.token = bearerToken;
     next();
   } else {
@@ -94,7 +94,11 @@ const verifyToken = (req, res, next) => {
 };
 
 app.post("/profil", verifyToken, (req, res) => {
-  const decoded = jwt.verify(req.token, "secretkey", { algorithms: ["HS256"] });
+  console.log("Token = " + req.token);
+  const decoded = jwt.verify(req.token, "secretkey", {
+    alg: "HS256",
+    typ: "JWT",
+  });
   console.log(decoded);
   // jwt.verify(req.token, "secretkey", (err, authUser) => {
   //   if (err) {
@@ -110,9 +114,9 @@ app.post("/profil", verifyToken, (req, res) => {
 app.post("/etiquette", async (req, res) => {
   console.log(req.body);
   const etiquette = new Etiquette({
-    num: req.body.num,
-    url: req.body.url,
-    emailUser: req.body.emailUser,
+    num: req.body.etiquette.num,
+    url: req.body.etiquette.url,
+    emailUser: req.body.etiquette.emailUser,
   });
 
   await etiquette.save();
