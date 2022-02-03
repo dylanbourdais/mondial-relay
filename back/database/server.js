@@ -1,9 +1,12 @@
+const { LogTimings } = require("concurrently");
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const md5 = require("md5");
+const _ = require("lodash");
 
 const connexion = require("./db/connect");
-const User = require("./model/User.js");
+const User = require("./model/User");
+const Etiquette = require("./model/Etiquette");
 
 connexion();
 
@@ -25,7 +28,13 @@ app.get("", (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-  console.log(req.body);
+  const rep = await User.find({
+    email: req.body.email,
+  }).exec();
+  if (rep.length) {
+    return res.status(400).send("wrong email or wrong password");
+  }
+
   const passMd5 = md5(req.body.password);
   const newUser = new User({
     firstName: req.body.firstName,
@@ -38,11 +47,12 @@ app.post("/register", async (req, res) => {
     algorithm: "HS256",
     expiresIn: "3000s",
   });
-  newUser.token = token;
-  console.log(newUser);
   try {
     await newUser.save();
-    return res.status(201).send({ data: newUser, token });
+    return res.status(201).send({
+      data: _.pick(newUser, ["firstName", "lastName", "email"]),
+      token,
+    });
   } catch (err) {
     console.log(err.message);
   }
@@ -55,19 +65,19 @@ app.post("/login", async (req, res) => {
     email: req.body.email,
     pass: passMd5,
   };
-  console.log(user);
+
   const rep = await User.find({
     email: user.email,
     password: user.pass,
   }).exec();
-  if (rep[0] === undefined) {
+  if (!rep.length) {
     return res.status(404).send("wrong email or wrong password");
   }
   const token = jwt.sign({ user: User }, "secretkey", {
     algorithm: "HS256",
     expiresIn: "30000000s",
   });
-  res.send({ token });
+  res.send({ emailUser: user.email, token });
 });
 
 const verifyToken = (req, res, next) => {
@@ -95,6 +105,17 @@ app.post("/profil", verifyToken, (req, res) => {
   //     res.status(200).send("ok");
   //   }
   // });
+});
+
+app.post("/etiquette", async (req, res) => {
+  console.log(req.body);
+  const etiquette = new Etiquette({
+    num: req.body.num,
+    url: req.body.url,
+    emailUser: req.body.emailUser,
+  });
+
+  await etiquette.save();
 });
 
 app.listen(3001, () => console.log("listenning on port 3001"));

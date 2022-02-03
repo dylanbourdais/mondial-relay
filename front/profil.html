@@ -30,6 +30,13 @@
         }
       }
 
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
       body{
           background-color: #d5dee5;
       }
@@ -38,7 +45,30 @@
       background-color: red !important;
       }
 
-  
+      #home, h1{
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        margin-left: 46rem;
+        margin-top: 18rem;
+      }
+      @media (min-width: 2000px) {
+   
+        #home , h1{
+          z-index: 1000;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: fixed;
+          margin-left: 56rem;
+          margin-top: 22rem;      
+        }
+      }
+        
+      
+   
     </style>
   </head>
   <body>
@@ -103,7 +133,10 @@
 </svg>
 
 <main>
-  <div class="d-flex flex-column flex-shrink-0 p-3 text-black " style="width: 280px; height: 43rem; background-color: #fff; ">
+  <section id="#home">
+  <h1>welcome profile</h1>
+  </section>
+  <div class="d-flex flex-column flex-shrink-0 p-3 text-black "  style="width: 280px; height: 55rem; background-color: #fff; ">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-black text-decoration-none">
      <img src= "./public/img/logo.png" alt="" width="40" height="32">
       <span class="fs-4">Profil</span>
@@ -111,27 +144,33 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto" >
       <li class="nav-item">
-        <a href="index.html" class="nav-link active"  aria-current="page">
+        <a href="#home" class="nav-link active"   aria-current="page">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
           Home
         </a>
       </li>
       <li>
-        <a href="etiquette.html" class="nav-link text-black">
+        <a href="#" class="nav-link text-black">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
           Etiquette
         </a>
       </li>
       <li>
-        <a href="index.html" class="nav-link text-black">
+        <a href="index.html " class="nav-link text-black">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#toggles2"/></svg>
           Point-Relais
         </a>
       </li>
       <li>
-        <a href="profil.html" class="nav-link text-black">
+        <a href="update.html" class="nav-link text-black">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-          Profil
+          Update Profil
+        </a>
+      </li>
+      <li>
+        <a href="update-address.html" class="nav-link text-black">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+          Update Adress 
         </a>
       </li>
     </ul>
@@ -143,16 +182,18 @@
       </a>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
         <li><a class="dropdown-item" href="etiquette.html">New Etiquette</a></li>
-        <li><a class="dropdown-item" href="profil.html">Profil</a></li>
+        <li><a class="dropdown-item" href="personal-information.html">Personal information</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" id="signOut" href="#">Sign out</a></li>
       </ul>
     </div>
   </div>
 
-
+  
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
   <script type="module" src="public/js/profil.js"></script>
   </body>
 </html>

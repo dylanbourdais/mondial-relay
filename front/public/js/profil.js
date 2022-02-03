@@ -1,7 +1,12 @@
 const axios = require("axios");
 
 const token = localStorage.getItem("token");
-
+if (!token) {
+  console.log("token");
+  return (document.querySelector("body").innerHTML = `
+  <h1>ERROR 403 FORBIDDEN</h1>
+  `);
+}
 const verifyUser = async (token) => {
   try {
     const options = {
@@ -15,6 +20,10 @@ const verifyUser = async (token) => {
     console.log(rep);
   } catch (err) {
     console.log(err.message);
+
+    // return (document.querySelector("body").innerHTML = `
+    // <h1>${err.message}</h1>
+    // `);
   }
 };
 
