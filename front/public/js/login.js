@@ -19,12 +19,12 @@ form.addEventListener("submit", async (e) => {
   try {
     const options = {
       method: "post",
-      url: "http://localhost:3001/login",
+      url: "http://localhost:3001/user/login",
       data: params,
     };
     rep = await axios(options);
     console.log(rep);
-    localStorage.setItem("token", JSON.stringify(rep.data.token));
+    localStorage.setItem("token", rep.data.token);
     localStorage.setItem("emailUser", JSON.stringify(rep.data.emailUser));
   } catch (err) {
     console.log(err.message);

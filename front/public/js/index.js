@@ -1,9 +1,18 @@
 const axios = require("axios");
 
+let token = localStorage.getItem("token");
+if (token) {
+  const login = document.querySelector("#login");
+  login.href = "profil.html";
+  login.textContent = "Profil";
+  document.querySelector("#signUp").remove();
+}
+
 const form = document.querySelector("form");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  document.querySelector("#relays").style.backgroundColor = "#eef0f3";
   const params = {};
   params.Pays = e.target.Pays.value;
   params.Ville = e.target.Ville.value;

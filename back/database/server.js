@@ -7,6 +7,7 @@ const _ = require("lodash");
 const connexion = require("./db/connect");
 const User = require("./model/User");
 const Etiquette = require("./model/Etiquette");
+const usersRoutes = require("./routes/users");
 
 connexion();
 
@@ -18,97 +19,94 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:1234");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, authorization"
+    "Origin, X-Requested-With, Content-Type, Accept, x-auth-token"
   );
   next();
 });
+
+app.use("/user", usersRoutes);
 
 app.get("", (req, res) => {
   res.send("ok");
 });
 
-app.post("/register", async (req, res) => {
-  const rep = await User.find({
-    email: req.body.email,
-  }).exec();
-  if (rep.length) {
-    return res.status(400).send("wrong email or wrong password");
-  }
+// app.post("/register", async (req, res) => {
+//   const rep = await User.find({
+//     email: req.body.email,
+//   }).exec();
+//   if (rep.length) {
+//     return res.status(400).send("wrong email or wrong password");
+//   }
 
-  const passMd5 = md5(req.body.password);
-  const newUser = new User({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: passMd5,
-  });
+//   const passMd5 = md5(req.body.password);
+//   const newUser = new User({
+//     firstName: req.body.firstName,
+//     lastName: req.body.lastName,
+//     email: req.body.email,
+//     password: passMd5,
+//   });
 
-  const token = jwt.sign({ user: User }, "secretkey", {
-    algorithm: "HS256",
-    expiresIn: "3000s",
-  });
-  try {
-    await newUser.save();
-    return res.status(201).send({
-      data: _.pick(newUser, ["firstName", "lastName", "email"]),
-      token,
-    });
-  } catch (err) {
-    console.log(err.message);
-  }
-});
+//   const token = jwt.sign({ user: User }, "secretkey", {
+//     algorithm: "HS256",
+//     expiresIn: "3000s",
+//   });
+//   try {
+//     await newUser.save();
+//     return res.status(201).send({
+//       data: _.pick(newUser, ["firstName", "lastName", "email"]),
+//       token,
+//     });
+//   } catch (err) {
+//     console.log(err.message);
+//   }
+// });
 
-app.post("/login", async (req, res) => {
-  const passMd5 = md5(req.body.pass);
+// app.post("/login", async (req, res) => {
+//   const passMd5 = md5(req.body.pass);
 
-  const user = {
-    email: req.body.email,
-    pass: passMd5,
-  };
+//   const user = {
+//     email: req.body.email,
+//     pass: passMd5,
+//   };
 
-  const rep = await User.find({
-    email: user.email,
-    password: user.pass,
-  }).exec();
-  if (!rep.length) {
-    return res.status(404).send("wrong email or wrong password");
-  }
-  const token = jwt.sign(user, "secretkey", {
-    alg: "HS256",
-    typ: "JWT",
-  });
-  res.send({ emailUser: user.email, token });
-});
+//   const rep = await User.find({
+//     email: user.email,
+//     password: user.pass,
+//   }).exec();
+//   if (!rep.length) {
+//     return res.status(404).send("wrong email or wrong password");
+//   }
+//   const token = jwt.sign(user, "secretkey", {
+//     algorithm: "HS256",
+//   });
+//   res.send({ emailUser: user.email, token });
+// });
 
 const verifyToken = (req, res, next) => {
-  const bearerHeader = req.headers["authorization"];
-  if (typeof bearerHeader !== undefined) {
-    const bearer = bearerHeader.split(" ");
-    const bearerToken = bearer[1];
-    console.log("bearerToken = " + bearerToken);
-    req.token = bearerToken;
+  const token = req.headers["x-auth-token"];
+
+  if (!token) {
+    return res.status(401).send("Unauthorized");
+  }
+  try {
+    const decodedToken = jwt.verify(token, "secretkey");
+
+    req.userId = decodedToken;
+
     next();
-  } else {
-    return res.status(403);
+  } catch (err) {
+    res.status(400).send("Invalid token");
   }
 };
 
-app.post("/profil", verifyToken, (req, res) => {
-  console.log("Token = " + req.token);
-  const decoded = jwt.verify(req.token, "secretkey", {
-    alg: "HS256",
-    typ: "JWT",
-  });
-  console.log(decoded);
-  // jwt.verify(req.token, "secretkey", (err, authUser) => {
-  //   if (err) {
-  //     console.log(err.message);
-  //     res.status(403).send("not ok");
-  //   } else {
-  //     console.log(authUser);
-  //     res.status(200).send("ok");
-  //   }
-  // });
+app.post("/profil", verifyToken, async (req, res) => {
+  const user = await User.findOne(req.userId);
+
+  if (!user) {
+    return res.status(400).send({ message: "Invalid token" });
+  }
+
+  res.send(user);
 });
 
 app.post("/etiquette", async (req, res) => {

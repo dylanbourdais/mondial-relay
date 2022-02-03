@@ -1,29 +1,26 @@
 const axios = require("axios");
 
-const token = localStorage.getItem("token");
+let token = localStorage.getItem("token");
 if (!token) {
-  console.log("token");
   return (document.querySelector("body").innerHTML = `
   <h1>ERROR 403 FORBIDDEN</h1>
   `);
 }
+token = token.replace(/"/g, "");
+
 const verifyUser = async (token) => {
   try {
     const options = {
       method: "post",
       url: "http://localhost:3001/profil",
       headers: {
-        authorization: `Bearer ${token}`,
+        "x-auth-token": token,
       },
     };
     rep = await axios(options);
-    console.log(rep);
+    console.log(rep.data);
   } catch (err) {
     console.log(err.message);
-
-    // return (document.querySelector("body").innerHTML = `
-    // <h1>${err.message}</h1>
-    // `);
   }
 };
 
