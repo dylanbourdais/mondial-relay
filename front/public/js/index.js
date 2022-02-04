@@ -1,12 +1,8 @@
 const axios = require("axios");
+const changeNavBar = require("./modules/navbar");
+const verifyUser = require("./modules/verifyUser");
 
-let token = localStorage.getItem("token");
-if (token) {
-  const login = document.querySelector("#login");
-  login.href = "profil.html";
-  login.textContent = "Profil";
-  document.querySelector("#signUp").remove();
-}
+changeNavBar();
 
 const form = document.querySelector("form");
 

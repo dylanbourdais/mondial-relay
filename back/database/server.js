@@ -1,7 +1,6 @@
 const { LogTimings } = require("concurrently");
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const md5 = require("md5");
 const _ = require("lodash");
 
 const connexion = require("./db/connect");
@@ -82,42 +81,42 @@ app.get("", (req, res) => {
 //   res.send({ emailUser: user.email, token });
 // });
 
-const verifyToken = (req, res, next) => {
-  const token = req.headers["x-auth-token"];
+// const verifyToken = (req, res, next) => {
+//   const token = req.headers["x-auth-token"];
 
-  if (!token) {
-    return res.status(401).send("Unauthorized");
-  }
-  try {
-    const decodedToken = jwt.verify(token, "secretkey");
+//   if (!token) {
+//     return res.status(401).send("Unauthorized");
+//   }
+//   try {
+//     const decodedToken = jwt.verify(token, "secretkey");
 
-    req.userId = decodedToken;
+//     req.userId = decodedToken;
 
-    next();
-  } catch (err) {
-    res.status(400).send("Invalid token");
-  }
-};
+//     next();
+//   } catch (err) {
+//     res.status(400).send("Invalid token");
+//   }
+// };
 
-app.post("/profil", verifyToken, async (req, res) => {
-  const user = await User.findOne(req.userId);
+// app.post("/profil", verifyToken, async (req, res) => {
+//   const user = await User.findOne(req.userId);
 
-  if (!user) {
-    return res.status(400).send({ message: "Invalid token" });
-  }
+//   if (!user) {
+//     return res.status(400).send({ message: "Invalid token" });
+//   }
 
-  res.send(user);
-});
+//   res.send(user);
+// });
 
-app.post("/etiquette", async (req, res) => {
-  console.log(req.body);
-  const etiquette = new Etiquette({
-    num: req.body.etiquette.num,
-    url: req.body.etiquette.url,
-    emailUser: req.body.etiquette.emailUser,
-  });
+// app.post("/etiquette", async (req, res) => {
+//   console.log(req.body);
+//   const etiquette = new Etiquette({
+//     num: req.body.etiquette.num,
+//     url: req.body.etiquette.url,
+//     emailUser: req.body.etiquette.emailUser,
+//   });
 
-  await etiquette.save();
-});
+//   await etiquette.save();
+// });
 
 app.listen(3001, () => console.log("listenning on port 3001"));

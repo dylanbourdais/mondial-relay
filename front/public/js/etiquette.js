@@ -1,6 +1,29 @@
 const axios = require("axios");
+const changeNavBar = require("./modules/navbar");
+
+changeNavBar();
 
 const form = document.querySelector("form");
+
+const prefill = async (form) => {
+  const options = {
+    method: "post",
+    url: "http://localhost:3001/user/prefillEtiquette",
+    data: { email: localStorage.getItem("emailUser") },
+  };
+  try {
+    const { data } = await axios(options);
+    form.Expe_Langage.value = "FR";
+    form.Expe_Ad1.value = `${data.firstName} ${data.lastName}`;
+    form.Expe_Ad3.value = data.address.street;
+    form.Expe_Ville.value = data.address.city;
+    form.Expe_CP.value = data.address.zip;
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+prefill(form);
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -50,9 +73,10 @@ form.addEventListener("submit", async (e) => {
     };
 
     try {
-      rep = await axios.post("http://127.0.0.1:3001/etiquette/", {
+      rep = await axios.post("http://127.0.0.1:3001/user/etiquette/", {
         etiquette,
       });
+      window.alert("The etiquette was created");
     } catch (err) {
       console.log(err);
     }

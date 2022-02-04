@@ -18,8 +18,7 @@ form.addEventListener("submit", async (e) => {
 
   if (params.email[0] !== params.email[1]) {
     return console.log("email invalide");
-  }
-  if (params.pass[0] !== params.pass[1]) {
+  } else if (params.pass[0] !== params.pass[1]) {
     return console.log("password invalide");
   } else {
     const newUser = {
@@ -40,8 +39,9 @@ form.addEventListener("submit", async (e) => {
     try {
       const rep = await axios(options);
       console.log(rep);
-      localStorage.setItem("token", JSON.stringify(rep.data.token));
-      localStorage.setItem("emailUser", JSON.stringify(rep.data.newUser.email));
+      localStorage.setItem("token", rep.data.token);
+      localStorage.setItem("emailUser", rep.data.emailUser);
+      document.location.href = "profil.html";
     } catch (err) {
       console.log(err.message);
     }

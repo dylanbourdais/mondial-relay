@@ -25,7 +25,7 @@ form.addEventListener("submit", async (e) => {
     rep = await axios(options);
     console.log(rep);
     localStorage.setItem("token", rep.data.token);
-    localStorage.setItem("emailUser", JSON.stringify(rep.data.emailUser));
+    localStorage.setItem("emailUser", rep.data.emailUser);
   } catch (err) {
     console.log(err.message);
   }
