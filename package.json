@@ -6,7 +6,7 @@
   "scripts": {
     "start": "concurrently \"npm run back\" \"npm run front\"",
     "front": "parcel front/index.html",
-    "back": "nodemon back/api/server.js"
+    "back": "nodemon back/server.js"
   },
   "keywords": [],
   "author": "",

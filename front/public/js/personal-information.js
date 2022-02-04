@@ -1,4 +1,3 @@
-//const axios = require("axios");
 const verifyUser = require("./modules/verifyUser");
 
 const user = async () => {
