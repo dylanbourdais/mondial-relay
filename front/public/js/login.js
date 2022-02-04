@@ -19,7 +19,7 @@ form.addEventListener("submit", async (e) => {
   try {
     const options = {
       method: "post",
-      url: "http://localhost:3001/user/login",
+      url: "http://localhost:3000/user/login",
       data: params,
     };
     rep = await axios(options);

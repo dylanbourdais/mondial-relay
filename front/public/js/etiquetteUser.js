@@ -6,7 +6,7 @@ verifyUser();
 const getEtiquettes = async () => {
   const options = {
     method: "post",
-    url: "http://localhost:3001/user/myEtiquettes",
+    url: "http://localhost:3000/user/myEtiquettes",
     data: localStorage.getItem("emailUser"),
   };
 

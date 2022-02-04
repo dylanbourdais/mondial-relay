@@ -4,6 +4,15 @@ const { toXML } = require("jstoxml");
 const axios = require("axios");
 const convert = require("xml-js");
 const Joi = require("joi");
+const jwt = require("jsonwebtoken");
+const _ = require("lodash");
+
+const connexion = require("./db/connect");
+const User = require("./model/User");
+const Etiquette = require("./model/Etiquette");
+const usersRoutes = require("./routes/users");
+
+connexion();
 
 const app = express();
 
@@ -13,10 +22,12 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:1234");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept, x-auth-token"
   );
   next();
 });
+
+app.use("/user", usersRoutes);
 
 const searchPointsRelais = async (body, res) => {
   body.Enseigne = "BDTEST13";

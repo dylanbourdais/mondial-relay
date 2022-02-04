@@ -30,7 +30,7 @@ form.addEventListener("submit", async (e) => {
 
   const options = {
     method: "post",
-    url: "http://localhost:3001/user/updateProfil",
+    url: "http://localhost:3000/user/updateProfil",
     data: { email: localStorage.getItem("emailUser"), user: params },
   };
   try {

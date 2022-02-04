@@ -8,7 +8,7 @@ const form = document.querySelector("form");
 const prefill = async (form) => {
   const options = {
     method: "post",
-    url: "http://localhost:3001/user/prefillEtiquette",
+    url: "http://localhost:3000/user/prefillEtiquette",
     data: { email: localStorage.getItem("emailUser") },
   };
   try {
@@ -22,8 +22,9 @@ const prefill = async (form) => {
     console.log(err.message);
   }
 };
-
-prefill(form);
+if (localStorage.getItem("emailUser")) {
+  prefill(form);
+}
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -73,7 +74,7 @@ form.addEventListener("submit", async (e) => {
     };
 
     try {
-      rep = await axios.post("http://127.0.0.1:3001/user/etiquette/", {
+      rep = await axios.post("http://127.0.0.1:3000/user/etiquette/", {
         etiquette,
       });
       window.alert("The etiquette was created");
