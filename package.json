@@ -21,6 +21,7 @@
     "jstoxml": "^2.2.7",
     "md5": "^2.3.0",
     "mongoose": "^6.1.9",
+    "mongoose-type-email": "^1.1.2",
     "nodemon": "^2.0.15",
     "parcel": "^2.2.1",
     "xml-js": "^1.6.11"

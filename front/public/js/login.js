@@ -11,26 +11,28 @@ form.addEventListener("submit", async (e) => {
 
   const params = {};
   params.email = e.target.mail.value;
-  params.pass = e.target.pass.value;
+  params.password = e.target.pass.value;
 
-  console.log(params);
-  let rep = "";
+  // on construit et on envoie la requête de connexion
+  const options = {
+    method: "post",
+    url: "http://localhost:3000/login",
+    data: params,
+  };
 
+  let rep = 0;
   try {
-    const options = {
-      method: "post",
-      url: "http://localhost:3000/user/login",
-      data: params,
-    };
     rep = await axios(options);
-    console.log(rep);
+  } catch (err) {
+    window.alert(err.message);
+  }
+  // si la requête de connexion réussi
+  if (rep.status === 200) {
+    // on enregistre le token et l'email de l'utilisateur dans localStorage
     localStorage.setItem("token", rep.data.token);
     localStorage.setItem("emailUser", rep.data.emailUser);
-  } catch (err) {
-    console.log(err.message);
-  }
-  if (rep.status === 200) {
-    console.log("connected");
+
+    // on va sur la page "profil.html"
     document.location.href = `http://localhost:1234/profil.html`;
   }
 });

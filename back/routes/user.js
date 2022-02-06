@@ -7,8 +7,18 @@ const _ = require("lodash");
 
 const verifyToken = require("../middlewares/verifyToken");
 const Etiquette = require("../model/Etiquette");
+const validateNewUser = require("../utilities/schemaValidateNewUser");
+const validateAddress = require("../utilities/schemaValidateAddress");
+const validateUserUpdate = require("../utilities/schemaValidateUserUpdate");
 
+// on enregistre un nouvel utilisateur
 router.post("/register", async (req, res) => {
+  const { error } = validateNewUser(req.body);
+
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+
   const rep = await User.find({
     email: req.body.email,
   }).exec();
@@ -40,28 +50,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
-  const passMd5 = md5(req.body.pass);
-
-  const user = {
-    email: req.body.email,
-    pass: passMd5,
-  };
-
-  const rep = await User.findOne({
-    email: user.email,
-    password: user.pass,
-  }).exec();
-  if (!rep) {
-    return res.status(400).send("invalid email or invalid password");
-  }
-
-  const token = jwt.sign({ id: _.pick(rep, "_id") }, "secretkey", {
-    algorithm: "HS256",
-  });
-  res.send({ emailUser: user.email, token });
-});
-
+// on vérifie l'identité de l'utilisateur et renvoie les informations de celui-ci
 router.post("/auth", verifyToken, async (req, res) => {
   const user = await User.findById(req.user.id).select("-password -_id -__v");
 
@@ -72,8 +61,8 @@ router.post("/auth", verifyToken, async (req, res) => {
   res.send(user);
 });
 
+// on sauvegarde une étiquette dans la BD qu'on associe à un utilisateur
 router.post("/etiquette", async (req, res) => {
-  console.log(req.body);
   const etiquette = new Etiquette({
     num: req.body.etiquette.num,
     url: req.body.etiquette.url,
@@ -85,15 +74,22 @@ router.post("/etiquette", async (req, res) => {
   res.send(etiquette);
 });
 
+// on récupère les étiquettes que l'utilisateur a crées
 router.post("/myEtiquettes", async (req, res) => {
-  const ettiquettes = await Etiquette.find(req.body.emailUser).select(
+  const etiquettes = await Etiquette.find(req.body.emailUser).select(
     "-_id -emailUser -__v"
   );
-  console.log(ettiquettes);
-  res.send(ettiquettes);
+  res.send(etiquettes);
 });
 
+// on modifie l'adresse postale de l'utilisateur
 router.post("/updateAddress", async (req, res) => {
+  const { error } = validateAddress(req.body.address);
+
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+
   const rep = await User.updateOne(
     { mail: req.body.email },
     {
@@ -108,20 +104,22 @@ router.post("/updateAddress", async (req, res) => {
   console.log(
     "found : " + rep.matchedCount + " modified :" + rep.modifiedCount
   );
-  res.send("ok");
+  res.send("Address saved");
 });
 
+// on modifie le profil de l'utilisateur
 router.post("/updateProfil", async (req, res) => {
+  const { error } = validateUserUpdate(req.body.user);
+
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+
   const rep = await User.updateOne({ mail: req.body.email }, req.body.user);
   if (rep.modifiedCount === 1) {
     res.send({ email: req.body.user.email });
   }
   res.status(200).send("Profil is already update");
-});
-
-router.post("/prefillEtiquette", async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
-  res.send(user);
 });
 
 module.exports = router;

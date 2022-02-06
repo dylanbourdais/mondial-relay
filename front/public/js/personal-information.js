@@ -1,7 +1,9 @@
 const verifyUser = require("./modules/verifyUser");
 
-const user = async () => {
-  const user = await verifyUser();
+const userInfo = async () => {
+  const user = await verifyUser(); // on vérifie et on récupère les information de l'utilisateur
+
+  // on affiche les informations de l'utilisateur
   document.querySelector("#staticfirstName").value = user.firstName;
   document.querySelector("#staticLastname").value = user.lastName;
   document.querySelector("#staticEmail").value = user.email;
@@ -15,4 +17,5 @@ const user = async () => {
     document.querySelector("#staticCity").value = user.address.city;
   }
 };
-user();
+
+userInfo();

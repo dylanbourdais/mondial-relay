@@ -1,18 +1,21 @@
 const axios = require("axios");
 const verifyUser = require("./modules/verifyUser");
 
-verifyUser();
-
 const getEtiquettes = async () => {
+  // on vérifie l'identité de l'utilisateur et on récupère son email
+  const { email } = await verifyUser();
+
+  // on construit et on envoie la requête
   const options = {
     method: "post",
     url: "http://localhost:3000/user/myEtiquettes",
-    data: localStorage.getItem("emailUser"),
+    data: email,
   };
 
   try {
     const { data } = await axios(options);
 
+    //pour chaque étiquette, on affiche le numéro de celui-ci ainsi que son lien de téléchargement
     data.forEach((etiquette) => {
       const num = `
         <div class="mb-3 row">

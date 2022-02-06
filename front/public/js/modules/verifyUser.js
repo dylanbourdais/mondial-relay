@@ -1,5 +1,7 @@
 const axios = require("axios");
 
+// on vérifie l'identité de l'utilisateur
+
 module.exports = async () => {
   let token = localStorage.getItem("token");
   if (!token) {
@@ -20,5 +22,6 @@ module.exports = async () => {
     return rep.data;
   } catch (err) {
     console.log(err.message);
+    document.location.href = "http://localhost:1234/login.html";
   }
 };

@@ -1,6 +1,5 @@
 const axios = require("axios");
 const changeNavBar = require("./modules/navbar");
-const verifyUser = require("./modules/verifyUser");
 
 changeNavBar();
 
@@ -8,7 +7,10 @@ const form = document.querySelector("form");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+
   document.querySelector("#relays").style.backgroundColor = "#eef0f3";
+
+  // on récupère les informations du formulaire
   const params = {};
   params.Pays = e.target.Pays.value;
   params.Ville = e.target.Ville.value;
@@ -18,23 +20,26 @@ form.addEventListener("submit", async (e) => {
 
   let rep = {};
 
+  // si le code postale est renseigner mais pas la ville
   if (params.Ville === "" && params.CP !== "") {
     rep = await axios
       .get(
         `http://localhost:3000/api/search/${params.Pays}/cp/${params.CP}?rayon=${params.RayonRecherche}&results=${params.NombreResultats}`
       )
       .catch((error) => {
-        console.log(error.message);
         document.querySelector("#relays").innerHTML = `${error.message}`;
+        return;
       });
-  } else if (params.Ville !== "" && params.CP === "") {
+  }
+  // sinon si la ville est renseigner mais pas le code postale
+  else if (params.Ville !== "" && params.CP === "") {
     rep = await axios
       .get(
         `http://localhost:3000/api/search/${params.Pays}/ville/${params.Ville}?rayon=${params.RayonRecherche}&results=${params.NombreResultats}`
       )
       .catch((error) => {
-        console.log(error.message);
         document.querySelector("#relays").innerHTML = `${error.message}`;
+        return;
       });
   } else {
     rep = await axios
@@ -42,14 +47,13 @@ form.addEventListener("submit", async (e) => {
         `http://localhost:3000/api/search/${params.Pays}/ville/${params.Ville}?cp=${params.CP}&rayon=${params.RayonRecherche}&results=${params.NombreResultats}`
       )
       .catch((error) => {
-        console.log(error.toJSON());
         document.querySelector("#relays").innerHTML = `${error.message}`;
+        return;
       });
   }
-  if (!rep) {
-    return;
-  }
+
   const { data } = rep;
+
   const geojson = {
     type: "Relay",
     relays: [],
@@ -62,11 +66,13 @@ form.addEventListener("submit", async (e) => {
   document.querySelector("#relays").innerHTML = ``;
 
   data.forEach((pointRelais) => {
-    let addressForm = pointRelais.Adresse.split(",");
-    addressForm.splice(4, 1);
-    addressForm.shift();
-    const city = addressForm.splice(0, 2);
+    // on récupère la rue et le CP/Ville qu'on place dans deux variables
+    let street = pointRelais.Adresse.split(",");
+    street.splice(4, 1);
+    street.shift();
+    const zipCity = street.splice(0, 2);
 
+    // on créer le résumer du point relais
     listRelay += `
     <section class="relay-section" id=${id}>
       <div id="relay-head">
@@ -79,8 +85,8 @@ form.addEventListener("submit", async (e) => {
       </div>
       <div id="relay-body">
       <div class="relay" id="address">
-        <p>${city.toString()}</p>
-        <p>${addressForm.toString()}</p>
+        <p>${zipCity.toString()}</p>
+        <p>${street.toString()}</p>
       </div>
       <div class="relay">
         <p>Distance : ${pointRelais.Distance / 1000}km</p>
@@ -89,8 +95,7 @@ form.addEventListener("submit", async (e) => {
     </section>
     `;
 
-    document.querySelector("#relays").innerHTML = listRelay;
-
+    // on formatte l'affichage des horaires
     const days = Object.keys(pointRelais.Horaires);
     let scheduling = "";
 
@@ -107,8 +112,8 @@ form.addEventListener("submit", async (e) => {
           <p>${day} : ${schedule}</p>
           `;
     });
-    let address = pointRelais.Adresse.replace(/,/g, ", ");
 
+    // on créer la fiche plus détailler du points relais
     detailRelay.push(`
     <section class="relay-section" id=${id}>
       <div id="relay-head">
@@ -121,8 +126,8 @@ form.addEventListener("submit", async (e) => {
       </div>
       <div id="relay-body">
       <div class="relay" id="address">
-        <p>${city.toString()}</p>
-        <p>${addressForm.toString()}</p>
+        <p>${zipCity.toString()}</p>
+        <p>${street.toString()}</p>
       </div>
       <div class="relay">
         <p>Distance : ${pointRelais.Distance / 1000}km</p>
@@ -138,6 +143,7 @@ form.addEventListener("submit", async (e) => {
         </section>
         `);
 
+    // on enregistre des infos du points relay afin de pouvoir les afficher sur la carte
     let relayInfo = {
       type: "Relay",
       properties: {
@@ -157,11 +163,15 @@ form.addEventListener("submit", async (e) => {
     id++;
   });
 
+  // on affiche la liste des points relais
+  document.querySelector("#relays").innerHTML = listRelay;
+
+  // on créer une fonction récursive afin que lorsque l'on clique sur un points relais de liste alors la fiche de celui-ci remplace la liste et si l'on clique sur la fiche alors la liste remplace la fiche
   const addEvent = (id, listRelay, detailRelay) => {
     for (let i = 0; i < id; i++) {
-      document.getElementById(`${i}`).addEventListener("click", (e) => {
+      document.getElementById(`${i}`).addEventListener("click", () => {
         document.querySelector("#relays").innerHTML = detailRelay[i];
-        document.getElementById(`${i}`).addEventListener("click", (e) => {
+        document.getElementById(`${i}`).addEventListener("click", () => {
           document.querySelector("#relays").innerHTML = listRelay;
           addEvent(id, listRelay, detailRelay);
         });
@@ -174,6 +184,7 @@ form.addEventListener("submit", async (e) => {
   mapboxgl.accessToken =
     "pk.eyJ1Ijoia2VybzMzMzMiLCJhIjoiY2t6MmgwZThnMGM1dDJxb2R3aW1iZ2hvMSJ9.x9p6pHXQRllrCII-MLsjnw";
 
+  // on affiche la carte et on la centre sur les coordonnées du premier point relais trouvé
   const map = new mapboxgl.Map({
     container: "map",
     style: "mapbox://styles/mapbox/streets-v11",
@@ -181,10 +192,8 @@ form.addEventListener("submit", async (e) => {
     zoom: 11,
   });
 
-  // Add markers to the map.
+  // on créer un point pour chaque points relais trouvés sur la carte
   for (const marker of geojson.relays) {
-    // Create a DOM element for each marker.
-    console.log(marker);
     const el = document.createElement("div");
     const width = marker.properties.iconSize[0];
     const height = marker.properties.iconSize[1];
@@ -194,6 +203,7 @@ form.addEventListener("submit", async (e) => {
     el.style.height = `${height}px`;
     el.style.backgroundSize = "100%";
 
+    // lorsqu'on clique sur le point, on affiche la fiche du point relais
     el.addEventListener("click", () => {
       document.querySelector("#relays").innerHTML =
         detailRelay[marker.properties.id];
@@ -205,7 +215,7 @@ form.addEventListener("submit", async (e) => {
         });
     });
 
-    // Add markers to the map.
+    // on ajoute le point sur la carte
     new mapboxgl.Marker(el).setLngLat(marker.geometry.coordinates).addTo(map);
   }
 });

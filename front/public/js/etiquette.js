@@ -1,34 +1,33 @@
 const axios = require("axios");
 const changeNavBar = require("./modules/navbar");
+const verifyUser = require("./modules/verifyUser");
 
 changeNavBar();
 
-const form = document.querySelector("form");
-
 const prefill = async (form) => {
-  const options = {
-    method: "post",
-    url: "http://localhost:3000/user/prefillEtiquette",
-    data: { email: localStorage.getItem("emailUser") },
-  };
   try {
-    const { data } = await axios(options);
+    const data = await verifyUser();
     form.Expe_Langage.value = "FR";
     form.Expe_Ad1.value = `${data.firstName} ${data.lastName}`;
     form.Expe_Ad3.value = data.address.street;
     form.Expe_Ville.value = data.address.city;
     form.Expe_CP.value = data.address.zip;
   } catch (err) {
-    console.log(err.message);
+    window.alert(err.message);
   }
 };
-if (localStorage.getItem("emailUser")) {
+
+const form = document.querySelector("form");
+
+// si l'utilisateur est connecté à son compte, on préremplit les champs du formulaire
+if (localStorage.getItem("token")) {
   prefill(form);
 }
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  // on récupère les informations du formulaire
   params = {};
   params.ModeCol = e.target.ModeCol.value;
   params.ModeLiv = e.target.ModeLiv.value;
@@ -52,9 +51,8 @@ form.addEventListener("submit", async (e) => {
   params.COL_Rel = e.target.COL_Rel.value.toUpperCase();
   params.LIV_Rel_Pays = e.target.LIV_Rel_Pays.value.toUpperCase();
   params.LIV_Rel = e.target.LIV_Rel.value;
-  console.log(params);
-  console.log(params);
 
+  // on construit et on envoie une requête afin de créer une étiquette
   const options = {
     method: "post",
     url: "http://127.0.0.1:3000/api/createEtiquette/",
@@ -72,17 +70,16 @@ form.addEventListener("submit", async (e) => {
       url: rep.data.URL_Etiquette,
       emailUser: localStorage.getItem("emailUser").replace(/"/g, ""),
     };
-
+    // on envoie une requête afin d'enregistrer une étiquette dans la base de données
     try {
       rep = await axios.post("http://127.0.0.1:3000/user/etiquette/", {
         etiquette,
       });
       window.alert("The etiquette was created");
     } catch (err) {
-      console.log(err);
+      window.alert(err.message);
     }
   } catch (err) {
-    console.log(err);
+    window.alert(err.message);
   }
-  console.log(rep);
 });

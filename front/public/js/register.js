@@ -1,10 +1,16 @@
 const axios = require("axios");
 
+const token = localStorage.getItem("token");
+if (token) {
+  document.location.href = "http://localhost:1234/profil.html";
+}
+
 const form = document.querySelector("form");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  // on récupère les informations du formulaire
   const params = {
     email: [],
     pass: [],
@@ -16,34 +22,40 @@ form.addEventListener("submit", async (e) => {
   params.pass.push(e.target.pass.value);
   params.pass.push(e.target.passConfirm.value);
 
+  // on vérifie si les informations de email sont identiques et idem pour password
   if (params.email[0] !== params.email[1]) {
-    return console.log("email invalide");
-  } else if (params.pass[0] !== params.pass[1]) {
-    return console.log("password invalide");
-  } else {
-    const newUser = {
-      firstName: params.firstName,
-      lastName: params.lastName,
-      email: params.email[0],
-      password: params.pass[0],
-    };
-    const options = {
-      method: "post",
-      url: "http://localhost:3000/user/register/",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: newUser,
-    };
+    return window.alert("email invalide");
+  }
+  if (params.pass[0] !== params.pass[1]) {
+    return window.alert("password invalide");
+  }
 
-    try {
-      const rep = await axios(options);
-      console.log(rep);
-      localStorage.setItem("token", rep.data.token);
-      localStorage.setItem("emailUser", rep.data.emailUser);
-      document.location.href = "profil.html";
-    } catch (err) {
-      console.log(err.message);
-    }
+  // on construit et on envoie la requête
+  const newUser = {
+    firstName: params.firstName,
+    lastName: params.lastName,
+    email: params.email[0],
+    password: params.pass[0],
+  };
+  const options = {
+    method: "post",
+    url: "http://localhost:3000/user/register/",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: newUser,
+  };
+
+  try {
+    const rep = await axios(options);
+
+    // on enregistre le token et l'email de l'utilisateur dans localStorage
+    localStorage.setItem("token", rep.data.token);
+    localStorage.setItem("emailUser", rep.data.emailUser);
+
+    // on va sur la page "profil.html"
+    document.location.href = "profil.html";
+  } catch (err) {
+    window.alert(err.message);
   }
 });
