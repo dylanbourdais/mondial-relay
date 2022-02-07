@@ -79,7 +79,6 @@ p {
   padding: 0px 32px;
   margin-top: 65px;
 }
-
 .contain {
   display: flex;
   justify-content: center;
@@ -91,26 +90,51 @@ p {
   text-align: center;
   font-size: 30px;
   padding: 40px;
+  width: 40%;
+}
+
+.content {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 45%;
 }
 
 .left {
-  display: flex;
-  justify-content: center;
-  justify-content: space-around;
-  margin: 50px;
+  float: left;
+  text-align: center;
 }
 
 .right {
-  display: flex;
+  float: right;
+  text-align: center;
+}
+
+.titles {
+  margin: 0 auto;
+  width: 60%;
+  font-size: 30px;
+}
+
+.placement {
+  margin: 35%;
+  align-items: center;
   justify-content: center;
-  justify-content: space-around;
-  margin: 50px;
+  text-align: center;
+}
+
+.center {
+  margin: 0 auto;
+  width: 70%;
+}
+
+.sub {
+  margin-top: -36%;
 }
 
 .button {
-  display: flex;
+  text-align: center;
   justify-content: center;
-  margin: 25px;
 }
 
 @media screen and (max-width: 990px) and (min-width: 600px) {

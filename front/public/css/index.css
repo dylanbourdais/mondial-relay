@@ -7,14 +7,18 @@
   display: flex;
   justify-content: center;
 }
-h1 {
-  display: flex;
-  justify-content: center;
-}
 form {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+body {
+  background-color: white;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
 }
 /* relay points */
 #disp {
@@ -102,14 +106,21 @@ form {
   justify-content: center;
 }
 
-body {
-  background-color: white;
+@media screen and (max-width: 599px) {
+  #disp {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  #map-area {
+    width: 100%;
+    height: 5px;
+  }
+  #relays {
+    width: 100%;
+  }
 }
 
-h1 {
-  display: flex;
-  justify-content: center;
-}
 form {
   display: flex;
   justify-content: space-between;
