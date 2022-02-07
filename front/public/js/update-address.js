@@ -22,8 +22,9 @@ form.addEventListener("submit", async (e) => {
     data: { email: localStorage.getItem("emailUser"), address: params },
   };
   try {
-    const rep = await axios(options);
+    const { data } = await axios(options);
+    document.querySelector("#message").textContent = data;
   } catch (err) {
-    document.querySelector("span").textContent = err.message;
+    document.querySelector("#message").textContent = err.message;
   }
 });
