@@ -46,7 +46,7 @@ router.post("/register", async (req, res) => {
       .status(201)
       .send({ emailUser: newUser.email, token });
   } catch (err) {
-    res.status(400).send(err.message);
+    res.status(500).send(err.message);
   }
 });
 

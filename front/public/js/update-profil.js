@@ -22,10 +22,11 @@ form.addEventListener("submit", async (e) => {
 
   // on vérifie si les informations de email sont identiques et idem pour password
   if (params.email[0] !== params.email[1]) {
-    return (document.querySelector("span").textContent = "email invalide");
+    return (document.querySelector("#message").textContent = "email invalide");
   }
   if (params.password[0] !== params.password[1]) {
-    return (document.querySelector("span").textContent = "password invalide");
+    return (document.querySelector("#message").textContent =
+      "password invalide");
   }
 
   // on supprime les doublons
@@ -46,6 +47,6 @@ form.addEventListener("submit", async (e) => {
       localStorage.setItem("emailUser", rep.data.email);
     }
   } catch (err) {
-    document.querySelector("span").textContent = err.message;
+    document.querySelector("#message").textContent = err.message;
   }
 });
