@@ -63,27 +63,28 @@ form.addEventListener("submit", async (e) => {
   };
 
   let rep = "";
+  let etiquette = {};
   try {
     rep = await axios(options);
-    const etiquette = {
+    etiquette = {
       num: rep.data.ExpeditionNum,
       url: rep.data.URL_Etiquette,
       emailUser: localStorage.getItem("emailUser").replace(/"/g, ""),
     };
-    // on envoie une requête afin d'enregistrer une étiquette dans la base de données
-    try {
-      rep = await axios.post("http://127.0.0.1:3000/etiquette/save/", {
-        etiquette,
-      });
-      document.querySelector("span").innerHTML = `
-      The etiquette was created.
-      click
-      <a href="${etiquette.url}">here</a>
-      to download it
-      `;
-    } catch (err) {
-      document.querySelector("span").textContent = err.message;
-    }
+  } catch (err) {
+    document.querySelector("span").textContent = err.message;
+  }
+  // on envoie une requête afin d'enregistrer une étiquette dans la base de données
+  try {
+    rep = await axios.post("http://127.0.0.1:3000/etiquette/save", {
+      etiquette,
+    });
+    document.querySelector("span").innerHTML = `
+        The etiquette was created.
+        click
+        <a href="${etiquette.url}">here</a>
+        to download it
+        `;
   } catch (err) {
     document.querySelector("span").textContent = err.message;
   }

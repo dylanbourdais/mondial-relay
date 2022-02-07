@@ -30,5 +30,6 @@ app.use("/user", usersRoutes);
 app.use("/login", loginRoute);
 app.use("/api/search", apiSearchRoutes);
 app.use("/api/createEtiquette", apiCreateEtiquette);
+app.use("/etiquette", apiCreateEtiquette);
 
 app.listen(3000, () => console.log("server listenning on port 3000"));

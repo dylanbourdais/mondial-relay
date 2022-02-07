@@ -114,8 +114,8 @@ router.post("/myEtiquettes", async (req, res) => {
   const etiquettes = await Etiquette.find(req.body.emailUser).select(
     "-_id -emailUser -__v"
   );
-  if (etiquettes.length) {
-    res.status(404).send("Not found an etiquette");
+  if (!etiquettes.length) {
+    return res.status(404).send("Not found an etiquette");
   }
   res.send(etiquettes);
 });
