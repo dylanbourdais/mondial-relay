@@ -75,11 +75,16 @@ form.addEventListener("submit", async (e) => {
       rep = await axios.post("http://127.0.0.1:3000/user/etiquette/", {
         etiquette,
       });
-      window.alert("The etiquette was created");
+      document.querySelector("span").innerHTML = `
+      The etiquette was created.
+      click
+      <a href="${etiquette.url}">here</a>
+      to download it
+      `;
     } catch (err) {
-      window.alert(err.message);
+      document.querySelector("span").textContent = err.message;
     }
   } catch (err) {
-    window.alert(err.message);
+    document.querySelector("span").textContent = err.message;
   }
 });

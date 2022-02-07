@@ -24,10 +24,10 @@ form.addEventListener("submit", async (e) => {
 
   // on vérifie si les informations de email sont identiques et idem pour password
   if (params.email[0] !== params.email[1]) {
-    return window.alert("email invalide");
+    return (document.querySelector("span").textContent = "email invalide");
   }
   if (params.pass[0] !== params.pass[1]) {
-    return window.alert("password invalide");
+    return (document.querySelector("span").textContent = "password invalide");
   }
 
   // on construit et on envoie la requête
@@ -56,6 +56,6 @@ form.addEventListener("submit", async (e) => {
     // on va sur la page "profil.html"
     document.location.href = "profil.html";
   } catch (err) {
-    window.alert(err.message);
+    document.querySelector("span").textContent = err.message;
   }
 });

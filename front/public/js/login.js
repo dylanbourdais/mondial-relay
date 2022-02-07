@@ -24,7 +24,7 @@ form.addEventListener("submit", async (e) => {
   try {
     rep = await axios(options);
   } catch (err) {
-    window.alert(err.message);
+    document.querySelector("span").textContent = err.message;
   }
   // si la requête de connexion réussi
   if (rep.status === 200) {

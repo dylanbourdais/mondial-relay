@@ -136,6 +136,11 @@ p {
   text-align: center;
   justify-content: center;
 }
+.message {
+  display: flex;
+  justify-content: center;
+  padding: 2em;
+}
 
 @media screen and (max-width: 990px) and (min-width: 600px) {
   .nav-link {

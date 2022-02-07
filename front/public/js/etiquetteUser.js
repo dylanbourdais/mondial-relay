@@ -42,7 +42,7 @@ const getEtiquettes = async () => {
         `;
     });
   } catch (err) {
-    console.log(err.message);
+    document.querySelector("span").textContent = err.message;
   }
 };
 
