@@ -31,6 +31,4 @@ app.use("/login", loginRoute);
 app.use("/api/search", apiSearchRoutes);
 app.use("/api/createEtiquette", apiCreateEtiquette);
 
-app.listen(3000, () =>
-  console.log("server listenning on http://127.0.0.1:3000")
-);
+app.listen(3000, () => console.log("server listenning on port 3000"));

@@ -5,6 +5,7 @@ const { toXML } = require("jstoxml");
 const axios = require("axios");
 const convert = require("xml-js");
 
+const Etiquette = require("../model/Etiquette");
 const validateEtiquette = require("../utilities/schemaValidateEtiquette");
 
 // création d'étiquette
@@ -95,4 +96,27 @@ router.post("", async (req, res) => {
   res.status(200).send(etiquette);
 });
 
+// on sauvegarde une étiquette dans la BD qu'on associe à un utilisateur
+router.post("/save", async (req, res) => {
+  const etiquette = new Etiquette({
+    num: req.body.etiquette.num,
+    url: req.body.etiquette.url,
+    emailUser: req.body.etiquette.emailUser,
+  });
+
+  await etiquette.save();
+
+  res.send(etiquette);
+});
+
+// on récupère les étiquettes que l'utilisateur a crées
+router.post("/myEtiquettes", async (req, res) => {
+  const etiquettes = await Etiquette.find(req.body.emailUser).select(
+    "-_id -emailUser -__v"
+  );
+  if (etiquettes.length) {
+    res.status(404).send("Not found an etiquette");
+  }
+  res.send(etiquettes);
+});
 module.exports = router;

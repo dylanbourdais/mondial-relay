@@ -13,7 +13,7 @@ module.exports = async () => {
   try {
     const options = {
       method: "post",
-      url: "http://localhost:3000/user/auth",
+      url: "http://localhost:3000/login/auth",
       headers: {
         "x-auth-token": token,
       },

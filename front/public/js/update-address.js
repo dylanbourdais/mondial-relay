@@ -24,6 +24,6 @@ form.addEventListener("submit", async (e) => {
   try {
     const rep = await axios(options);
   } catch (err) {
-    window.alert(err.message);
+    document.querySelector("span").textContent = err.message;
   }
 });

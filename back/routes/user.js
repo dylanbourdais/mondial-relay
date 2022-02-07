@@ -2,36 +2,36 @@ const express = require("express");
 const User = require("../model/User");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const md5 = require("md5");
 const _ = require("lodash");
+const bcrypt = require("bcrypt");
 
-const verifyToken = require("../middlewares/verifyToken");
-const Etiquette = require("../model/Etiquette");
 const validateNewUser = require("../utilities/schemaValidateNewUser");
 const validateAddress = require("../utilities/schemaValidateAddress");
 const validateUserUpdate = require("../utilities/schemaValidateUserUpdate");
 
 // on enregistre un nouvel utilisateur
 router.post("/register", async (req, res) => {
+  const { firstName, lastName, email, password } = req.body;
   const { error } = validateNewUser(req.body);
 
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
 
-  const rep = await User.find({
-    email: req.body.email,
-  }).exec();
-  if (rep.length) {
+  const rep = await User.findOne({
+    email: email,
+  });
+  if (rep) {
     return res.status(400).send("invalid email or invalid password");
   }
 
-  const passMd5 = md5(req.body.password);
+  const hash = bcrypt.hashSync(password, 10);
+
   const newUser = new User({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: passMd5,
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    password: hash,
   });
 
   try {
@@ -46,40 +46,8 @@ router.post("/register", async (req, res) => {
       .status(201)
       .send({ emailUser: newUser.email, token });
   } catch (err) {
-    console.log(err.message);
+    res.status(400).send(err.message);
   }
-});
-
-// on vérifie l'identité de l'utilisateur et renvoie les informations de celui-ci
-router.post("/auth", verifyToken, async (req, res) => {
-  const user = await User.findById(req.user.id).select("-password -_id -__v");
-
-  if (!user) {
-    return res.status(400).send({ message: "Invalid token" });
-  }
-
-  res.send(user);
-});
-
-// on sauvegarde une étiquette dans la BD qu'on associe à un utilisateur
-router.post("/etiquette", async (req, res) => {
-  const etiquette = new Etiquette({
-    num: req.body.etiquette.num,
-    url: req.body.etiquette.url,
-    emailUser: req.body.etiquette.emailUser,
-  });
-
-  await etiquette.save();
-
-  res.send(etiquette);
-});
-
-// on récupère les étiquettes que l'utilisateur a crées
-router.post("/myEtiquettes", async (req, res) => {
-  const etiquettes = await Etiquette.find(req.body.emailUser).select(
-    "-_id -emailUser -__v"
-  );
-  res.send(etiquettes);
 });
 
 // on modifie l'adresse postale de l'utilisateur
@@ -109,15 +77,20 @@ router.post("/updateAddress", async (req, res) => {
 
 // on modifie le profil de l'utilisateur
 router.post("/updateProfil", async (req, res) => {
-  const { error } = validateUserUpdate(req.body.user);
+  const { user } = req.body;
+
+  const { error } = validateUserUpdate(user);
 
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
 
-  const rep = await User.updateOne({ mail: req.body.email }, req.body.user);
+  const hash = bcrypt.hashSync(user.password, 10);
+  user.password = hash;
+
+  const rep = await User.updateOne({ mail: req.body.email }, user);
   if (rep.modifiedCount === 1) {
-    res.send({ email: req.body.user.email });
+    return res.send({ email: user.email });
   }
   res.status(200).send("Profil is already update");
 });

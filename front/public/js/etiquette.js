@@ -72,7 +72,7 @@ form.addEventListener("submit", async (e) => {
     };
     // on envoie une requête afin d'enregistrer une étiquette dans la base de données
     try {
-      rep = await axios.post("http://127.0.0.1:3000/user/etiquette/", {
+      rep = await axios.post("http://127.0.0.1:3000/etiquette/save/", {
         etiquette,
       });
       document.querySelector("span").innerHTML = `

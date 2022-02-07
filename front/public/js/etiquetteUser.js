@@ -8,7 +8,7 @@ const getEtiquettes = async () => {
   // on construit et on envoie la requête
   const options = {
     method: "post",
-    url: "http://localhost:3000/user/myEtiquettes",
+    url: "http://localhost:3000/etiquette/myEtiquettes",
     data: email,
   };
 
