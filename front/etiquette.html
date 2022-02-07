@@ -27,7 +27,7 @@
     <div class="contain">
       <div class="form-group">
         <label for="exampleFormControlSelect1">Collect Mod</label>
-        <select class="form-control" id="exampleFormControlSelect1" name="ModeCol">
+        <select class="form-control" id="exampleFormControlSelect1">
           <option>CCC</option>
           <option>CDR</option>
           <option>CDS</option>
@@ -37,7 +37,7 @@
 
       <div class="form-group">
         <label for="exampleFormControlSelect1">Delivery Mod</label>
-        <select class="form-control" id="exampleFormControlSelect1" name="ModeLiv">
+        <select class="form-control" id="exampleFormControlSelect1">
           <option>LCC</option>
           <option>LD1</option>
           <option>LDS</option>
@@ -49,8 +49,9 @@
       </div>
     </div>
 
-  <div class="title">Sender</div>
-    <div class="left">
+<div class="content">
+  <div class="left">
+    <div class="title">Sender</div>
       <div class="form-group">
         <label for="exampleInputPassword1">Sender's Langage</label>
         <input type="text" class="form-control" id="exampleInputPassword1" name="Expe_Langage" placeholder="Langage" value="FR">
@@ -70,9 +71,7 @@
         <label for="exampleInputPassword1">Sender's Town</label>
         <input type="text" class="form-control" id="exampleInputPassword1" name="Expe_Ville" placeholder="Town">
       </div>
-    </div>
-
-    <div class="right">
+    
       <div class="form-group">
         <label for="exampleInputPassword1">Sender's Zip</label>
         <input type="text" class="form-control" id="exampleInputPassword1" name="Expe_CP" placeholder="Zip">
@@ -87,11 +86,15 @@
         <label for="exampleInputPassword1">Sender's Phone Number</label>
         <input type="text" class="form-control" id="exampleInputPassword1" name="Expe_Tel1" placeholder="Phone Number">
       </div>
-    </div>
+  </div>
 
 
-  <div class="title">Recipient</div>
-    <div class="left">
+
+
+
+
+  <div class="right">
+    <div class="title">Recipient</div>
       <div class="form-group">
         <label for="exampleInputPassword1">Recipient Langage</label>
         <input type="text" class="form-control" id="exampleInputPassword1" name="Dest_Langage" placeholder="Langage" value="FR">
@@ -107,10 +110,8 @@
         <label for="exampleInputPassword1">Recipient's Street</label>
         <input type="text" class="form-control" id="exampleInputPassword1" name="Dest_Ad3" placeholder="Street">
       </div>
-    </div>
 
 
-    <div class="right">
       <div class="form-group">
         <label for="exampleInputPassword1">Recipient's Town</label>
         <input type="text" class="form-control" id="exampleInputPassword1" name="Dest_Ville" placeholder="Town">
@@ -125,14 +126,31 @@
         <label for="exampleInputPassword1">Recipient's Country</label>
         <input type="text" class="form-control" id="exampleInputPassword1" name="Dest_Pays" placeholder="Country">
       </div>
-    </div>
+  </div>
+</div>
 
 
-  <div class="title">More Informations</div>
-    <div class="left">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="placement">
+  <div class="center">
+    <div class="titles">More Informations</div>
+
       <div class="form-group">
         <label for="exampleInputPassword1">Weight</label>
-        <input type="text" class="form-control" id="exampleInputPassword1" name="Poids" placeholder="Weight in grams" min="15">
+        <input type="text" class="form-control" id="exampleInputPassword1" name="Poids" placeholder="Weight in grams">
       </div>
       
       
@@ -151,9 +169,7 @@
         <label for="exampleInputPassword1">Package Relay Country</label>
         <input type="text" class="form-control" id="exampleInputPassword1" name="COL_Rel_Pays" placeholder="XX">
       </div>
-    </div>
 
-    <div class="right">
       <div class="form-group">
         <label for="exampleInputPassword1">Package Relay</label>
         <input type="text" class="form-control" id="exampleInputPassword1" name="COL_Rel" value="AUTO">
@@ -168,14 +184,17 @@
         <label for="exampleInputPassword1">Delivery Relay</label>
         <input type="text" class="form-control" id="exampleInputPassword1" name="LIV_Rel" placeholder="Number Relay">
       </div>
-    </div>
+  </div>
+</div>
 
+<div class="sub">
   <div class="button">
     <button  class="btn btn-primary btn-lg">Submit</button>
     </form>
   </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<script type="module" src="public/js/etiquette.js"></script>
+<script type="module" src="./public/js/etiquette.js"></script>
 </body>
 </html>

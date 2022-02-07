@@ -39,7 +39,34 @@
         right: 0;
         text-align: -webkit-center;
       }
-
+      .col-6 {
+        padding: 1%;
+      }
+      @-moz-document url-prefix() {
+        form {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        img {
+          margin: auto;
+        }
+        .col-6 {
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          margin: auto;
+        }
+        .col-6 > label {
+          text-align: center;
+        }
+        .checkbox {
+          margin: auto;
+        }
+        button {
+          margin: auto;
+        }
+      }
       img {
         padding: 10px;
       }

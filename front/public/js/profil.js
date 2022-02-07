@@ -1,6 +1,14 @@
 const verifyUser = require("./modules/verifyUser");
 
-verifyUser();
+const userInfo = async () => {
+  const user = await verifyUser();
+  console.log(user);
+  document.querySelector(
+    "h1"
+  ).textContent = `Welcome ${user.firstName} ${user.lastName}`;
+};
+
+userInfo();
 
 const signOut = document.querySelector("#signOut");
 
