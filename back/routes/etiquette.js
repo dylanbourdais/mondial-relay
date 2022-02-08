@@ -11,9 +11,7 @@ const validateEtiquette = require("../utilities/schemaValidateEtiquette");
 // création d'étiquette
 router.post("", async (req, res) => {
   req.body.Enseigne = "BDTEST13";
-
   const { error } = validateEtiquette(req.body);
-
   if (error) {
     let err = [];
     error.details.forEach((el) => {
@@ -95,6 +93,7 @@ router.post("", async (req, res) => {
   etiquette.URL_Etiquette = `https://www.mondialrelay.fr${etiquette.URL_Etiquette}`;
   res.status(200).send(etiquette);
 });
+
 
 // on sauvegarde une étiquette dans la BD qu'on associe à un utilisateur
 router.post("/save", async (req, res) => {
